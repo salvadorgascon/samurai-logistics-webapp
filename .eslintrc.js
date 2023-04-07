@@ -16,19 +16,31 @@ module.exports = {
     "overrides": [
     ],
     "parser": "@typescript-eslint/parser",
-    "parserOptions": {
+    "parserOptions": {    
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "plugins": [
         "react",
+        "react-hooks",
         "@typescript-eslint",
         "prettier"
     ],
     "rules": {
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+            "ts": "never",
+            "tsx": "never"
+            }
+        ]
     }
-    ,"settings":{
+    ,"settings":{     
+        "import/resolver": {
+            "typescript": {}
+        },   
         "react":{
             "version": "detect"
         }
