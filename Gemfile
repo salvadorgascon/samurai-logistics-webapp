@@ -90,6 +90,9 @@ group :development do
   # Rails support for Rubocop
   gem 'rubocop-rails'
 
+  # Rubocop integration with rspec
+  gem 'rubocop-rspec'
+
   # Detect N+1 queries
   gem 'bullet'
 
