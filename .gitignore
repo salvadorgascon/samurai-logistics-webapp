@@ -77,3 +77,10 @@ yarn-debug.log*
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# dotenv
+# TODO Comment out this rule if environment variables can be committed
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
