@@ -143,6 +143,9 @@ gem 'pagy'
 # Sort and reorder a number of objects in a list
 gem 'acts_as_list'
 
+# Implementation of the nested set pattern for ActiveRecord models.
+gem 'awesome_nested_set'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 

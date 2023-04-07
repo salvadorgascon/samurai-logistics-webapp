@@ -74,6 +74,8 @@ GEM
       activerecord (>= 3.2, < 8.0)
       rake (>= 10.4, < 14.0)
     ast (2.4.2)
+    awesome_nested_set (3.5.0)
+      activerecord (>= 4.0.0, < 7.1)
     awesome_print (1.9.2)
     bindex (0.8.1)
     bootsnap (1.16.0)
@@ -313,6 +315,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   annotate
+  awesome_nested_set
   awesome_print
   bootsnap
   bullet
