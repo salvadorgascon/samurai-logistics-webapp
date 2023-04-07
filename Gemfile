@@ -104,6 +104,12 @@ end
 # Locales
 gem 'rails-i18n'
 
+# Client for HTTP/HTTPS
+gem 'faraday'
+
+# Parser of HTML/XML
+gem 'nokogiri'
+
 # Fast pagination for Active Record
 gem 'pagy'
 
