@@ -110,6 +110,12 @@ gem 'faraday'
 # Parser of HTML/XML
 gem 'nokogiri'
 
+# Fast JSON parser and Object marshaller 
+gem 'oj'
+
+# Fast JSON:API serializer for Ruby Objects
+gem 'jsonapi-serializer'
+
 # Fast pagination for Active Record
 gem 'pagy'
 
