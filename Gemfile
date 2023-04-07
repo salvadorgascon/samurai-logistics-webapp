@@ -84,6 +84,9 @@ group :development do
   # Progress bar for rake tasks
   gem 'ruby-progressbar'
 
+  # Colors for rake tasks
+  gem 'rainbow'
+
   # Ruby code analyzer
   gem 'rubocop', require: false
 
