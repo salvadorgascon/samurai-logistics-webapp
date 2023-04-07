@@ -63,6 +63,9 @@ group :development, :test do
 
   # RSpec framework
   gem 'rspec-rails'
+
+  # Fixtures for testing
+  gem 'factory_bot_rails'
 end
 
 group :development do
