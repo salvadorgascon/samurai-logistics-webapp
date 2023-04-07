@@ -80,6 +80,9 @@ group :development do
 
   # Detect necesssary indexes
   gem 'lol_dba'
+
+  # Add schema information on models
+  gem 'annotate'
 end
 
 group :test do
