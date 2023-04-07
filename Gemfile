@@ -75,6 +75,8 @@ group :development do
   # Rails support for Rubocop
   gem 'rubocop-rails'
 
+  # Detect N+1 queries
+  gem 'bullet'
 end
 
 group :test do
