@@ -63,4 +63,27 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
 
   config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    ActiveSupport::Dependencies.clear
+
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean
+  end
+
+  config.before do
+    DatabaseCleaner.strategy = :truncation # Default strategy
+  end
+
+  config.before(:each, type: :feature) do
+    DatabaseCleaner.strategy = :truncation # Only truncation on feature specs
+  end
+
+  config.before do
+    DatabaseCleaner.start
+  end
+
+  config.append_after do
+    DatabaseCleaner.clean
+  end
 end
