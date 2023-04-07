@@ -104,5 +104,8 @@ end
 # Locales
 gem 'rails-i18n'
 
+# Fast pagination for Active Record
+gem 'pagy'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
