@@ -26,7 +26,7 @@
 #   database: db/production.sqlite3
 
 default: &default
-  adapter: postgis # postgresql
+  adapter: postgresql
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host:  <%= ENV['PG_HOSTNAME'] %>
