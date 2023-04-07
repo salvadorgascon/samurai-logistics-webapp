@@ -4,6 +4,11 @@
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@fontsource/open-sans": "^4.5.14",
+    "@fontsource/oswald": "^4.5.12",
+    "@fontsource/poppins": "^4.5.10",
+    "@fontsource/raleway": "^4.5.12",
+    "@fontsource/roboto": "^4.5.8",
     "@hotwired/stimulus": "^3.2.1",
     "@hotwired/turbo-rails": "^7.3.0",
     "@mui/material": "^5.11.16",
