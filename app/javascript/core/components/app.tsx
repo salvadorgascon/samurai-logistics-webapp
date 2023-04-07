@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import Header from "./header"
-import Footer from "./footer"
+import Header from "./header";
+import Footer from "./footer";
 
 export default function App() {
-    return (
-      <div>
-        <Header/>
-        <Footer/>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Header />
+      <Footer />
+    </div>
+  );
+}
