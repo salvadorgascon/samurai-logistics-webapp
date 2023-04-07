@@ -131,7 +131,7 @@ gem 'faraday'
 # Parser of HTML/XML
 gem 'nokogiri'
 
-# Fast JSON parser and Object marshaller 
+# Fast JSON parser and Object marshaller
 gem 'oj'
 
 # Fast JSON:API serializer for Ruby Objects
@@ -143,8 +143,11 @@ gem 'pagy'
 # Sort and reorder a number of objects in a list
 gem 'acts_as_list'
 
-# Implementation of the nested set pattern for ActiveRecord models.
+# Implementation of the nested set pattern for ActiveRecord models
 gem 'awesome_nested_set'
+
+# State machines to Ruby classes
+gem 'aasm'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
