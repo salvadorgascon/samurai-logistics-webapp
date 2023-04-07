@@ -149,8 +149,12 @@ gem 'awesome_nested_set'
 # State machines to Ruby classes
 gem 'aasm'
 
+# Bulk inserting data using ActiveRecord
+gem 'activerecord-import'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 
 # Named scopes for postgresql full text search
 gem 'pg_search'
+
