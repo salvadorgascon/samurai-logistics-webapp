@@ -75,6 +75,9 @@ group :development do
   # Print object
   gem 'awesome_print'
 
+  # Progress bar for rake tasks
+  gem 'ruby-progressbar'
+
   # Ruby code analyzer
   gem 'rubocop', require: false
 

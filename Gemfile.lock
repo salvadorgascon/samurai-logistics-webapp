@@ -274,6 +274,7 @@ DEPENDENCIES
   rails-i18n
   rubocop
   rubocop-rails
+  ruby-progressbar
   selenium-webdriver
   sprockets-rails
   sqlite3 (~> 1.4)
