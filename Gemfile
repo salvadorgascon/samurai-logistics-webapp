@@ -139,3 +139,6 @@ gem 'pagy'
 
 # Use postgresql as the database for Active Record
 gem 'pg'
+
+# Named scopes for postgresql full text search
+gem 'pg_search'
