@@ -11,6 +11,8 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div data-controller="<%= controller.controller_name.gsub "_", "-" %>">
+        <%= yield %>
+    </div>
   </body>
 </html>
