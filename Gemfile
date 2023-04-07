@@ -109,6 +109,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 
+  # Code coverage
+  gem 'simplecov', require: false
+
   # Helper to clear and build database
   gem 'database_cleaner-active_record'
 end

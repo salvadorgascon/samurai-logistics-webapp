@@ -84,3 +84,6 @@ yarn-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+
+# Ignore simple coverage folder
+/coverage/
