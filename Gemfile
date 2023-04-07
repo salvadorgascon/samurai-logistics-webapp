@@ -140,6 +140,9 @@ gem 'jsonapi-serializer'
 # Fast pagination for Active Record
 gem 'pagy'
 
+# Sort and reorder a number of objects in a list
+gem 'acts_as_list'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
 
