@@ -67,6 +67,13 @@ RSpec.configure do |config|
 
   config.include FactoryBot::Syntax::Methods
 
+  Shoulda::Matchers.configure do |config_shoulda|
+    config_shoulda.integrate do |with|
+      with.test_framework :rspec
+      with.library :rails
+    end
+  end
+
   config.before(:suite) do
     ActiveSupport::Dependencies.clear
 
@@ -90,3 +97,4 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 end
+

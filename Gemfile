@@ -109,6 +109,9 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 
+  # Extensions for assertions
+  gem 'shoulda-matchers'
+
   # Code coverage
   gem 'simplecov', require: false
 
