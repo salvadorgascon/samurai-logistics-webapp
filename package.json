@@ -33,7 +33,8 @@
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets --loader:.woff2=dataurl --loader:.woff=dataurl",
-    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify"
+    "build:css": "tailwindcss -i ./app/assets/stylesheets/application.tailwind.css -o ./app/assets/builds/application.css --minify",
+    "eslint": "npx eslint app/javascript/"
   },
   "devDependencies": {
     "@types/jest": "^29.5.0",
