@@ -52,6 +52,20 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 
 --
+-- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION postgis IS 'PostGIS geometry and geography spatial types and functions';
+
+
+--
 -- Name: unaccent; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -320,6 +334,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230407165641'),
 ('20230407165737'),
 ('20230407165836'),
-('20230407165924');
+('20230407165924'),
+('20230407170007');
 
 
