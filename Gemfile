@@ -84,5 +84,8 @@ group :test do
   gem "webdrivers"
 end
 
+# Locales
+gem 'rails-i18n'
+
 # Use postgresql as the database for Active Record
 gem 'pg'
