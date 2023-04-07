@@ -60,6 +60,9 @@ group :development, :test do
 
   # Generate fake data
   gem 'faker'
+
+  # RSpec framework
+  gem 'rspec-rails'
 end
 
 group :development do
