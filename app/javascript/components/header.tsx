@@ -15,7 +15,7 @@ export default function Header() {
     <AppBar position="static">
     <Toolbar>                   
       <Button  variant="text" sx={{ color: '#fff' }} component={Link} to={`/`}>Home</Button>
-      <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`test`}>Test</Button>            
+      <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`products`}>Products</Button>            
     </Toolbar>
     </AppBar>
   </header>);
