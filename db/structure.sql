@@ -251,6 +251,42 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: languages; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.languages (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    iso_code_639_1 character varying NOT NULL,
+    locale character varying NOT NULL,
+    name_en character varying NOT NULL,
+    name_es character varying NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: languages_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.languages_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: languages_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.languages_id_seq OWNED BY public.languages.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -278,6 +314,13 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAULT nextval('public.active_storage_variant_records_id_seq'::regclass);
+
+
+--
+-- Name: languages id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.languages ALTER COLUMN id SET DEFAULT nextval('public.languages_id_seq'::regclass);
 
 
 --
@@ -310,6 +353,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: languages languages_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.languages
+    ADD CONSTRAINT languages_pkey PRIMARY KEY (id);
 
 
 --
@@ -349,6 +400,41 @@ CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.ac
 
 
 --
+-- Name: index_languages_on_iso_code_639_1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_languages_on_iso_code_639_1 ON public.languages USING btree (iso_code_639_1);
+
+
+--
+-- Name: index_languages_on_locale; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_languages_on_locale ON public.languages USING btree (locale);
+
+
+--
+-- Name: index_languages_on_name_en; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_languages_on_name_en ON public.languages USING btree (name_en);
+
+
+--
+-- Name: index_languages_on_name_es; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_languages_on_name_es ON public.languages USING btree (name_es);
+
+
+--
+-- Name: index_languages_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_languages_on_uid ON public.languages USING btree (uid);
+
+
+--
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -380,6 +466,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230407170007'),
 ('20230407170205'),
 ('20230407170550'),
-('20230407170556');
+('20230407170556'),
+('20230408205526');
 
 
