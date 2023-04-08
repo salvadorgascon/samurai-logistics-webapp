@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 import React from "react";
 import { createRoot } from "react-dom/client";
 
-import App from "../core/components/app";
+import App from "../components/app";
 
 export default class extends Controller {
   connect() {
