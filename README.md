@@ -4,11 +4,24 @@ Web application for warehouse (WMS) and transport (TMS) management.
 
 ## Stack
 
-- Ruby 3.1.3
-- Rails 7
-- React 18
-- Material UI 5
-- PostgreSQL 14
+- FrontEnd:
+  - Esbuild 0.17
+  - TypeScript 5.0
+  - React 18.2
+  - ESlint 8.37
+  - Jest 29.5
+  - Material UI 5.11
+  - Turbo 7.3
+  - Stimulus 3.2
+  - PostCSS 8.4
+  - TailwinCSS 3.3   
+- Backend
+  - Ruby 3.1.3
+  - Rails 7.0
+  - RuboCop 1.49
+  - RSpec 3.12
+  - SimpleCov 0.22
+  - PostgreSQL 14
 
 ## Installation
 
