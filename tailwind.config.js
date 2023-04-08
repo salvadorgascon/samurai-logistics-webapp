@@ -1,3 +1,5 @@
+// const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     './app/views/**/*.html.erb',
@@ -9,7 +11,11 @@ module.exports = {
     './app/javascript/**/*.tsx'
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ["Roboto"] // , ...defaultTheme.fontFamily.sans]
+      }
+    },
   },
   plugins: [],
 }
