@@ -251,6 +251,41 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: countries; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.countries (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    name_en character varying NOT NULL,
+    name_es character varying NOT NULL,
+    iso_code_3166_1 character varying NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.countries_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: countries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.countries_id_seq OWNED BY public.countries.id;
+
+
+--
 -- Name: languages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -317,6 +352,13 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: countries id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.countries ALTER COLUMN id SET DEFAULT nextval('public.countries_id_seq'::regclass);
+
+
+--
 -- Name: languages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -353,6 +395,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: countries countries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.countries
+    ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
 
 
 --
@@ -397,6 +447,34 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 --
 
 CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.active_storage_variant_records USING btree (blob_id, variation_digest);
+
+
+--
+-- Name: index_countries_on_iso_code_3166_1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_countries_on_iso_code_3166_1 ON public.countries USING btree (iso_code_3166_1);
+
+
+--
+-- Name: index_countries_on_name_en; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_countries_on_name_en ON public.countries USING btree (name_en);
+
+
+--
+-- Name: index_countries_on_name_es; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_countries_on_name_es ON public.countries USING btree (name_es);
+
+
+--
+-- Name: index_countries_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_countries_on_uid ON public.countries USING btree (uid);
 
 
 --
@@ -467,6 +545,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230407170205'),
 ('20230407170550'),
 ('20230407170556'),
-('20230408205526');
+('20230408205526'),
+('20230408211204');
 
 
