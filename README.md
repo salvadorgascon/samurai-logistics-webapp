@@ -1,6 +1,14 @@
 # Samurai Logistics web application
 
-Web application
+Web application for warehouse (WMS) and transport (TMS) management.
+
+## Stack
+
+- Ruby 3.1.3
+- Rails 7
+- React 18
+- Material UI 5
+- PostgreSQL 14
 
 ## Installation
 
