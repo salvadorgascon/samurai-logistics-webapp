@@ -1,6 +1,6 @@
 # Samurai Logistics web application
 
-Web application for warehouse (WMS) and transport (TMS) management.
+Web application for warehouse (WMS) and transportation (TMS) management.
 
 ## Stack
 
