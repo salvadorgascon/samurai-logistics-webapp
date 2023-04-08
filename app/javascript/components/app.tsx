@@ -12,6 +12,8 @@ import Header from "./header";
 import Footer from "./footer";
 import Bottom from "./bottom";
 
+import Home from "./home";
+
 const router = createHashRouter([
   {
     path: "/",
@@ -27,7 +29,7 @@ const router = createHashRouter([
     children: [
       {
         path: "/",
-        element: <React.Fragment>Hello</React.Fragment>,
+        element: <Home/>,
       },
       {
         path: "test",
