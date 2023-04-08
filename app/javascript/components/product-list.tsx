@@ -1,5 +1,65 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import Typography from '@mui/material/Typography';
+
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { DataGrid, GridRowsProp, GridColDef, GridRowParams, GridActionsCellItem } from '@mui/x-data-grid';
+
+import AddIcon from '@mui/icons-material/Add';
+
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
+import GetAppIcon from '@mui/icons-material/GetApp';
+
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export default function ProductList() {
-  return (<div>Products</div>);
+  return (
+  <Container>
+    <Grid container spacing={2}>
+        <Grid item md={12}>
+            <Breadcrumbs>
+                <Link to={`/`}>Home</Link>
+                <Typography>Products</Typography>
+            </Breadcrumbs>  
+        </Grid>
+        <Grid item md={12}>
+            <Typography variant="h4">Products</Typography>
+        </Grid>
+        <Grid item md={12}>
+        <Button variant="contained" className="mr-4"><AddIcon/> Add</Button>
+        </Grid>
+
+        <Grid item md={12}>
+            <TextField label="Name" />
+        </Grid>
+        <Grid item md={12}>
+            <Button variant="contained" className="mr-4"><SearchIcon/> Search</Button>
+            <Button variant="contained" className="mr-4"><ClearIcon/> Clear</Button>
+            <Button variant="contained"><GetAppIcon/> Export</Button>
+        </Grid>
+        <Grid item md={12}>
+            <DataGrid autoHeight 
+                columns={[
+                    { field: 'code', flex: .1 },
+                    { field: 'barcode', flex: .2 },
+                    { field: 'name', flex: .5 }
+                ]}
+                rows={[
+                { id: 1, code:"001", barcdoe: '', name: 'Oracle' },
+                { id: 2, code:"002", barcdoe: '', name: 'MySql' },                
+                { id: 3, code:"003", barcdoe: '', name: 'PostgreSQL' },                
+                { id: 4, code:"004", barcdoe: '', name: 'Sql Server' },                
+                ]}
+            />   
+        </Grid>
+    </Grid>
+  </Container>
+  );
 }
