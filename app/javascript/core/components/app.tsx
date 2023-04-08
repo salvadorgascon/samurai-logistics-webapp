@@ -1,4 +1,5 @@
 import React from "react";
+import CssBaseline from '@mui/material/CssBaseline';
 
 import Top from "./top";
 import Header from "./header";
@@ -7,11 +8,12 @@ import Bottom from "./bottom";
 
 export default function App() {
   return (
-    <div>
+    <React.Fragment>
+      <CssBaseline />
       <Top/>
       <Header />
       <Footer />
       <Bottom/>
-    </div>
+    </React.Fragment>
   );
 }
