@@ -139,6 +139,7 @@ GEM
     faraday-net_http (3.0.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    hashie (5.0.0)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-console (0.6.0)
@@ -183,6 +184,10 @@ GEM
     nokogiri (1.14.2-x86_64-linux)
       racc (~> 1.4)
     oj (3.14.2)
+    omniauth (2.1.1)
+      hashie (>= 3.4.6)
+      rack (>= 2.2.3)
+      rack-protection
     orm_adapter (0.5.0)
     pagy (6.0.3)
     parallel (1.22.1)
@@ -200,6 +205,8 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.6.4)
+    rack-protection (3.0.5)
+      rack
     rack-test (2.1.0)
       rack (>= 1.3)
     rails (7.0.4.3)
@@ -360,6 +367,7 @@ DEPENDENCIES
   lol_dba
   nokogiri
   oj
+  omniauth
   pagy
   pg
   pg_search

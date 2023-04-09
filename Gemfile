@@ -149,6 +149,9 @@ gem 'devise'
 # Locales for devise
 gem 'devise-i18n'
 
+# Multi-provider authentication
+gem 'omniauth'
+
 # Sort and reorder a number of objects in a list
 gem 'acts_as_list'
 
