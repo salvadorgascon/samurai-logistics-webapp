@@ -143,6 +143,9 @@ gem 'jsonapi-serializer'
 # Fast pagination for Active Record
 gem 'pagy'
 
+# Authentication
+gem 'devise'
+
 # Sort and reorder a number of objects in a list
 gem 'acts_as_list'
 
