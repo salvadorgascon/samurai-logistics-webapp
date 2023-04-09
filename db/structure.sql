@@ -286,6 +286,43 @@ ALTER SEQUENCE public.countries_id_seq OWNED BY public.countries.id;
 
 
 --
+-- Name: currencies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.currencies (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    name_en character varying NOT NULL,
+    name_es character varying NOT NULL,
+    iso_code_4217 character varying(3) NOT NULL,
+    symbol character varying(3),
+    num_decimals integer DEFAULT 2,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: currencies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.currencies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: currencies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.currencies_id_seq OWNED BY public.currencies.id;
+
+
+--
 -- Name: languages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -359,6 +396,13 @@ ALTER TABLE ONLY public.countries ALTER COLUMN id SET DEFAULT nextval('public.co
 
 
 --
+-- Name: currencies id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.currencies ALTER COLUMN id SET DEFAULT nextval('public.currencies_id_seq'::regclass);
+
+
+--
 -- Name: languages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -403,6 +447,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.countries
     ADD CONSTRAINT countries_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: currencies currencies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.currencies
+    ADD CONSTRAINT currencies_pkey PRIMARY KEY (id);
 
 
 --
@@ -478,6 +530,34 @@ CREATE UNIQUE INDEX index_countries_on_uid ON public.countries USING btree (uid)
 
 
 --
+-- Name: index_currencies_on_iso_code_4217; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_currencies_on_iso_code_4217 ON public.currencies USING btree (iso_code_4217);
+
+
+--
+-- Name: index_currencies_on_name_en; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_currencies_on_name_en ON public.currencies USING btree (name_en);
+
+
+--
+-- Name: index_currencies_on_name_es; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_currencies_on_name_es ON public.currencies USING btree (name_es);
+
+
+--
+-- Name: index_currencies_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_currencies_on_uid ON public.currencies USING btree (uid);
+
+
+--
 -- Name: index_languages_on_iso_code_639_1; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -546,6 +626,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230407170550'),
 ('20230407170556'),
 ('20230408205526'),
-('20230408211204');
+('20230408211204'),
+('20230409033218');
 
 

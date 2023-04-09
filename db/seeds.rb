@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM currencies')
 ActiveRecord::Base.connection.execute('DELETE FROM countries')
 ActiveRecord::Base.connection.execute('DELETE FROM languages')
 ActiveRecord::Base.connection.execute('DELETE FROM active_storage_variant_records')
@@ -27,13 +28,8 @@ ActiveRecord::Base.connection.execute('DELETE FROM active_storage_blobs')
 
 Rails.logger.debug 'Creating languages ...'
 
-progres_create_languages = ProgressBar.create(title: 'Creating languages', total: 2)
-
 Language.create!(uid: SecureRandom.uuid, name_en: 'Spanish', name_es: 'Español', iso_code_639_1: 'es', locale: 'es')
-progres_create_languages.increment
-
 Language.create!(uid: SecureRandom.uuid, name_en: 'English', name_es: 'Inglés', iso_code_639_1: 'en', locale: 'en')
-progres_create_languages.increment
 
 ################################################################################################
 #
@@ -43,11 +39,18 @@ progres_create_languages.increment
 
 Rails.logger.debug 'Creating countries ...'
 
-progres_create_countries = ProgressBar.create(title: 'Creating countries', total: 2)
-
 spain = Country.create!(uid: SecureRandom.uuid, name_en: 'Spain', name_es: 'España', iso_code_3166_1: 'ES')
-progres_create_countries.increment
-
 usa = Country.create!(uid: SecureRandom.uuid, name_en: 'United States', name_es: 'Estados Unidos', iso_code_3166_1: 'US')
-progres_create_countries.increment
+
+
+################################################################################################
+#
+# CURRENCIES
+#
+################################################################################################
+
+Rails.logger.debug 'Creating currencies ...'
+
+euro = Currency.create!(uid: SecureRandom.uuid, name_en: "Euro", name_es:"Euro", iso_code_4217: "EUR", symbol: "€")
+usd = Currency.create!(uid: SecureRandom.uuid, name_en: "United States dollar", name_es: "Dólar estadounidense", iso_code_4217: "USD", symbol: "$")
 
