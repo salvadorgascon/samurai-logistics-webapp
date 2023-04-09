@@ -78,6 +78,9 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 
+  # IRB alternative with powerful introspection capabilities
+  gem 'pry'
+
   # Print object
   gem 'awesome_print'
 
