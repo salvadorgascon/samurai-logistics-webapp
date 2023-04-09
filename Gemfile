@@ -152,6 +152,9 @@ gem 'devise-i18n'
 # Multi-provider authentication
 gem 'omniauth'
 
+# Authorization solution
+gem 'pundit'
+
 # Sort and reorder a number of objects in a list
 gem 'acts_as_list'
 
