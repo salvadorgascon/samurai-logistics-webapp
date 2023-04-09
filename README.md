@@ -4,7 +4,7 @@ Web application for warehouse (WMS) and transportation (TMS) management.
 
 ## Stack
 
-- FrontEnd:
+- Frontend:
   - Esbuild 0.17
   - TypeScript 5.0
   - React 18.2
@@ -47,3 +47,5 @@ This project is under [Apache License 2.0](https://github.com/salvadorgascon/sam
 5. Create new Pull Request
 
 ## Credits
+
+Thanks for visiting!
