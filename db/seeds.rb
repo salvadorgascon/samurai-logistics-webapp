@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM taxes')
 ActiveRecord::Base.connection.execute('DELETE FROM currencies')
 ActiveRecord::Base.connection.execute('DELETE FROM countries')
 ActiveRecord::Base.connection.execute('DELETE FROM languages')
@@ -51,6 +52,17 @@ usa = Country.create!(uid: SecureRandom.uuid, name_en: 'United States', name_es:
 
 Rails.logger.debug 'Creating currencies ...'
 
-euro = Currency.create!(uid: SecureRandom.uuid, name_en: "Euro", name_es:"Euro", iso_code_4217: "EUR", symbol: "€")
-usd = Currency.create!(uid: SecureRandom.uuid, name_en: "United States dollar", name_es: "Dólar estadounidense", iso_code_4217: "USD", symbol: "$")
+euro = Currency.create!(uid: SecureRandom.uuid, name_en: 'Euro', name_es:'Euro', iso_code_4217: 'EUR', symbol: '€')
+usd = Currency.create!(uid: SecureRandom.uuid, name_en: 'United States dollar', name_es: 'Dólar estadounidense', iso_code_4217: 'USD', symbol: '$')
 
+################################################################################################
+#
+# TAXES
+#
+################################################################################################
+
+Rails.logger.debug 'Creating taxes ...'
+
+iva_10 = Tax.create!(uid: SecureRandom.uuid, code: 'IVA10', name_en: 'I.V.A. 10%', name_es: 'I.V.A. 10%', rate: 10)
+iva_21 = Tax.create!(uid: SecureRandom.uuid, code: 'IVA21', name_en: 'I.V.A. 21%', name_es: 'I.V.A. 21%', rate: 21)
+irpf = Tax.create!(uid: SecureRandom.uuid, code: 'IRPF15', name_en: 'I.R.P.F. 15%', name_es: 'I.R.P.F. 15%', rate: 15)

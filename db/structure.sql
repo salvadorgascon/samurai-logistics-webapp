@@ -368,6 +368,46 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: taxes; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.taxes (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    code character varying(50) NOT NULL,
+    name_en character varying NOT NULL,
+    name_es character varying NOT NULL,
+    rate numeric(10,4) NOT NULL,
+    is_purchase_tax boolean DEFAULT false,
+    is_sales_tax boolean DEFAULT false,
+    tags character varying[],
+    search_text tsvector,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: taxes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.taxes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: taxes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.taxes_id_seq OWNED BY public.taxes.id;
+
+
+--
 -- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -407,6 +447,13 @@ ALTER TABLE ONLY public.currencies ALTER COLUMN id SET DEFAULT nextval('public.c
 --
 
 ALTER TABLE ONLY public.languages ALTER COLUMN id SET DEFAULT nextval('public.languages_id_seq'::regclass);
+
+
+--
+-- Name: taxes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.taxes ALTER COLUMN id SET DEFAULT nextval('public.taxes_id_seq'::regclass);
 
 
 --
@@ -471,6 +518,14 @@ ALTER TABLE ONLY public.languages
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: taxes taxes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.taxes
+    ADD CONSTRAINT taxes_pkey PRIMARY KEY (id);
 
 
 --
@@ -593,6 +648,48 @@ CREATE UNIQUE INDEX index_languages_on_uid ON public.languages USING btree (uid)
 
 
 --
+-- Name: index_taxes_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_taxes_on_code ON public.taxes USING btree (code);
+
+
+--
+-- Name: index_taxes_on_name_en; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_taxes_on_name_en ON public.taxes USING btree (name_en);
+
+
+--
+-- Name: index_taxes_on_name_es; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_taxes_on_name_es ON public.taxes USING btree (name_es);
+
+
+--
+-- Name: index_taxes_on_search_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taxes_on_search_text ON public.taxes USING gin (search_text);
+
+
+--
+-- Name: index_taxes_on_tags; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_taxes_on_tags ON public.taxes USING gin (tags);
+
+
+--
+-- Name: index_taxes_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_taxes_on_uid ON public.taxes USING btree (uid);
+
+
+--
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -627,6 +724,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230407170556'),
 ('20230408205526'),
 ('20230408211204'),
-('20230409033218');
+('20230409033218'),
+('20230409033700');
 
 
