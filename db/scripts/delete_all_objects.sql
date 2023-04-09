@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS users;
+
 DROP TABLE IF EXISTS taxes;
 DROP TABLE IF EXISTS currencies;
 

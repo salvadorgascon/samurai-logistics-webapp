@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM users')
 ActiveRecord::Base.connection.execute('DELETE FROM taxes')
 ActiveRecord::Base.connection.execute('DELETE FROM currencies')
 ActiveRecord::Base.connection.execute('DELETE FROM countries')
@@ -66,3 +67,21 @@ Rails.logger.debug 'Creating taxes ...'
 iva_10 = Tax.create!(uid: SecureRandom.uuid, code: 'IVA10', name_en: 'I.V.A. 10%', name_es: 'I.V.A. 10%', rate: 10)
 iva_21 = Tax.create!(uid: SecureRandom.uuid, code: 'IVA21', name_en: 'I.V.A. 21%', name_es: 'I.V.A. 21%', rate: 21)
 irpf = Tax.create!(uid: SecureRandom.uuid, code: 'IRPF15', name_en: 'I.R.P.F. 15%', name_es: 'I.R.P.F. 15%', rate: 15)
+
+
+###############################################################################################
+#
+# USERS
+#
+################################################################################################
+
+Rails.logger.debug 'Creating users ...'
+
+admin_user = User.new(
+  email: 'admin@local',
+  password: 'hrQbE9wDRsdPThZpcUEP',
+  password_confirmation: 'hrQbE9wDRsdPThZpcUEP',
+  confirmed_at: DateTime.now)
+
+admin_user.skip_confirmation_notification!
+admin_user.save!
