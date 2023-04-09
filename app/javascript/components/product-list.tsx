@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
 
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import Button from '@mui/material/Button';
@@ -33,12 +34,23 @@ export default function ProductList() {
             <Typography variant="h4">Products</Typography>
         </Grid>
         <Grid item md={12}>
-        <Button variant="contained" className="mr-4"><AddIcon/> Add</Button>
+            <Stack direction="row" justifyContent="end">
+                <Button variant="contained"><AddIcon/> Add</Button>
+            </Stack>            
         </Grid>
 
-        <Grid item md={12}>
-            <TextField label="Name" />
+        <Grid container md={12} className="mt-4 pl-4">
+            <Grid item md={6}>
+                <TextField fullWidth  label="Code" className="pr-1" />            
+            </Grid>
+            <Grid item md={6}>
+                <TextField fullWidth  label="Barcode"  className="pl-1"/>
+            </Grid>                        
         </Grid>
+        <Grid item md={12}>
+            <TextField fullWidth  label="Name"  className="pr-1"/>
+        </Grid>
+
         <Grid item md={12}>
             <Button variant="contained" className="mr-4"><SearchIcon/> Search</Button>
             <Button variant="contained" className="mr-4"><ClearIcon/> Clear</Button>
