@@ -74,6 +74,11 @@ RSpec.configure do |config|
     end
   end
 
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.extend ControllerMacros, type: :controller
+  config.extend RequestMacros, type: :request
+
   config.before(:suite) do
     ActiveSupport::Dependencies.clear
 
