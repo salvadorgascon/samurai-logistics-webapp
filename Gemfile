@@ -155,6 +155,9 @@ gem 'omniauth'
 # Authorization solution
 gem 'pundit'
 
+# Strips all attributes of leading and trailing whitespace
+gem 'strip_attributes'
+
 # Sort and reorder a number of objects in a list
 gem 'acts_as_list'
 
