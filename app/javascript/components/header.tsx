@@ -7,9 +7,13 @@ import Toolbar from '@mui/material/Toolbar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 
+import Typography from '@mui/material/Typography';
+
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+
+import Avatar from '@mui/material/Avatar';
 
 export default function Header() {
   return (<header>
@@ -24,6 +28,8 @@ export default function Header() {
           >
             <MenuIcon />
           </IconButton>
+          <Avatar variant="square" src="/assets/logos/samuraidb_30_30.png" />
+          <Typography variant="h6" className="mr-10">Samurai Logistics</Typography>
 
       <Button  variant="text" sx={{ color: '#fff' }} component={Link} to={`/`}>Home</Button>
       <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`products`}>Products</Button>            
