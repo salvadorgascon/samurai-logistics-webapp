@@ -121,6 +121,9 @@ group :test do
   # Extensions for assertions
   gem 'shoulda-matchers'
 
+  # Matchers for Pundit
+  gem 'pundit-matchers'
+
   # Code coverage
   gem 'simplecov', require: false
 
