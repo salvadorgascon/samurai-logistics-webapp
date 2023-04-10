@@ -13,6 +13,8 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM colors')
+ActiveRecord::Base.connection.execute('DELETE FROM cost_centers')
 ActiveRecord::Base.connection.execute('DELETE FROM companies')
 ActiveRecord::Base.connection.execute('DELETE FROM users')
 ActiveRecord::Base.connection.execute('DELETE FROM taxes')
@@ -104,6 +106,7 @@ Faker::Company.unique.clear
 Faker::Finance.unique.clear
 
 company_1 = Company.create!(
+    uid: SecureRandom.uuid, 
     code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
     name: Faker::Company.unique.name,
     vat_number: Faker::Finance.unique.vat_number,
@@ -112,6 +115,7 @@ company_1 = Company.create!(
     updated_by: admin_user)
 
 company_2 = Company.create!(
+    uid: SecureRandom.uuid, 
     code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
     name: Faker::Company.unique.name,
     vat_number: Faker::Finance.unique.vat_number,
@@ -120,6 +124,7 @@ company_2 = Company.create!(
     updated_by: admin_user)
 
 company_3 = Company.create!(
+    uid: SecureRandom.uuid, 
     code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
     name: Faker::Company.unique.name,
     vat_number: Faker::Finance.unique.vat_number,
@@ -127,3 +132,34 @@ company_3 = Company.create!(
     created_by: admin_user,
     updated_by: admin_user)
     
+
+################################################################################################
+#
+# COST_CENTERS
+#
+################################################################################################
+
+Rails.logger.debug 'Creating cost centers ...'
+
+CostCenter.create!(uid: SecureRandom.uuid, code: '001', name: 'Cost Center 1', created_by: admin_user, updated_by: admin_user)
+CostCenter.create!(uid: SecureRandom.uuid, code: '002', name: 'Cost Center 2', created_by: admin_user, updated_by: admin_user)
+CostCenter.create!(uid: SecureRandom.uuid, code: '003', name: 'Cost Center 3', created_by: admin_user, updated_by: admin_user)
+
+################################################################################################
+#
+# COLORS
+#
+################################################################################################
+
+Rails.logger.debug 'Creating colors ...'
+
+Color.create!(uid: SecureRandom.uuid, name: 'Amarillo',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Azul',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Blanco',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Gris',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Marron',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Naranja',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Negro',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Rojo',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Rosa',created_by: admin_user, updated_by: admin_user)
+Color.create!(uid: SecureRandom.uuid, name: 'Verde',created_by: admin_user, updated_by: admin_user)
