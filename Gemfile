@@ -149,6 +149,9 @@ gem 'jsonapi-serializer'
 # Fast pagination for Active Record
 gem 'pagy'
 
+# Generates javascript file that defines all Rails named routes
+gem 'js-routes'
+
 # Authentication
 gem 'devise'
 
