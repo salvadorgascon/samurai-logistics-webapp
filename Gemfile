@@ -107,6 +107,9 @@ group :development do
 
   # Add schema information on models
   gem 'annotate'
+
+  # Preview email
+  gem 'letter_opener'
 end
 
 group :test do

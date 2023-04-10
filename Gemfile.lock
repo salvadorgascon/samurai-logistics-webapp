@@ -153,6 +153,10 @@ GEM
     json (2.6.3)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
+    launchy (2.5.2)
+      addressable (~> 2.8)
+    letter_opener (1.8.1)
+      launchy (>= 2.2, < 3)
     lol_dba (2.4.0)
       actionpack
       activerecord
@@ -368,6 +372,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   jsonapi-serializer
+  letter_opener
   lol_dba
   nokogiri
   oj
