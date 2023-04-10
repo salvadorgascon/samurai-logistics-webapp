@@ -41,6 +41,9 @@
 #
 class Company < ApplicationRecord
   attr_readonly :search_text
+
+  enum :state, %i[active archived], default: :active
+  attribute :state_at, :datetime, default: -> { Time.zone.now }
   
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'

@@ -24,7 +24,7 @@
 class Color < ApplicationRecord
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
-  
+
   validates :uid, presence: true
 
   validates :name, presence: true
