@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS colors;
+DROP TABLE IF EXISTS cost_centers;
+
 DROP TABLE IF EXISTS companies;
 
 DROP TABLE IF EXISTS users;
