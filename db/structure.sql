@@ -297,6 +297,44 @@ ALTER SEQUENCE public.companies_id_seq OWNED BY public.companies.id;
 
 
 --
+-- Name: cost_centers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.cost_centers (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    code character varying(50) NOT NULL,
+    name character varying NOT NULL,
+    tags character varying[],
+    search_text tsvector,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: cost_centers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.cost_centers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: cost_centers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.cost_centers_id_seq OWNED BY public.cost_centers.id;
+
+
+--
 -- Name: countries; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -532,6 +570,13 @@ ALTER TABLE ONLY public.companies ALTER COLUMN id SET DEFAULT nextval('public.co
 
 
 --
+-- Name: cost_centers id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cost_centers ALTER COLUMN id SET DEFAULT nextval('public.cost_centers_id_seq'::regclass);
+
+
+--
 -- Name: countries id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -604,6 +649,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.companies
     ADD CONSTRAINT companies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: cost_centers cost_centers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cost_centers
+    ADD CONSTRAINT cost_centers_pkey PRIMARY KEY (id);
 
 
 --
@@ -743,6 +796,41 @@ CREATE UNIQUE INDEX index_companies_on_uid ON public.companies USING btree (uid)
 --
 
 CREATE UNIQUE INDEX index_companies_on_vat_number ON public.companies USING btree (vat_number);
+
+
+--
+-- Name: index_cost_centers_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_cost_centers_on_code ON public.cost_centers USING btree (code);
+
+
+--
+-- Name: index_cost_centers_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_cost_centers_on_name ON public.cost_centers USING btree (name);
+
+
+--
+-- Name: index_cost_centers_on_search_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cost_centers_on_search_text ON public.cost_centers USING gin (search_text);
+
+
+--
+-- Name: index_cost_centers_on_tags; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_cost_centers_on_tags ON public.cost_centers USING gin (tags);
+
+
+--
+-- Name: index_cost_centers_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_cost_centers_on_uid ON public.cost_centers USING btree (uid);
 
 
 --
@@ -921,11 +1009,27 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 
 
 --
+-- Name: cost_centers fk_rails_40f7023c4c; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cost_centers
+    ADD CONSTRAINT fk_rails_40f7023c4c FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
+
+
+--
 -- Name: companies fk_rails_475d09990e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.companies
     ADD CONSTRAINT fk_rails_475d09990e FOREIGN KEY (created_by_id) REFERENCES public.users(id);
+
+
+--
+-- Name: cost_centers fk_rails_65bbfc3933; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.cost_centers
+    ADD CONSTRAINT fk_rails_65bbfc3933 FOREIGN KEY (created_by_id) REFERENCES public.users(id);
 
 
 --
@@ -974,6 +1078,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230409033218'),
 ('20230409033700'),
 ('20230409211224'),
-('20230410105721');
+('20230410105721'),
+('20230410150932');
 
 
