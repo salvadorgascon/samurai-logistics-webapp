@@ -1,5 +1,5 @@
 module Web  
-  class HomeController < ApplicationController
+  class HomeController < Web::WebController
     def index
       render(layout: 'default')
     end
