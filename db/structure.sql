@@ -251,6 +251,41 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: colors; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.colors (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    name character varying NOT NULL,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: colors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.colors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: colors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.colors_id_seq OWNED BY public.colors.id;
+
+
+--
 -- Name: companies; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -563,6 +598,13 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: colors id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.colors ALTER COLUMN id SET DEFAULT nextval('public.colors_id_seq'::regclass);
+
+
+--
 -- Name: companies id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -641,6 +683,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: colors colors_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.colors
+    ADD CONSTRAINT colors_pkey PRIMARY KEY (id);
 
 
 --
@@ -733,6 +783,20 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 --
 
 CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.active_storage_variant_records USING btree (blob_id, variation_digest);
+
+
+--
+-- Name: index_colors_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_colors_on_name ON public.colors USING btree (name);
+
+
+--
+-- Name: index_colors_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_colors_on_uid ON public.colors USING btree (uid);
 
 
 --
@@ -1025,6 +1089,14 @@ ALTER TABLE ONLY public.companies
 
 
 --
+-- Name: colors fk_rails_47e8b016b1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.colors
+    ADD CONSTRAINT fk_rails_47e8b016b1 FOREIGN KEY (created_by_id) REFERENCES public.users(id);
+
+
+--
 -- Name: cost_centers fk_rails_65bbfc3933; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1057,6 +1129,14 @@ ALTER TABLE ONLY public.companies
 
 
 --
+-- Name: colors fk_rails_e89ea06acf; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.colors
+    ADD CONSTRAINT fk_rails_e89ea06acf FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1079,6 +1159,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230409033700'),
 ('20230409211224'),
 ('20230410105721'),
-('20230410150932');
+('20230410150932'),
+('20230410151352');
 
 
