@@ -521,6 +521,57 @@ ALTER SEQUENCE public.languages_id_seq OWNED BY public.languages.id;
 
 
 --
+-- Name: products; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.products (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    code character varying(50) NOT NULL,
+    barcode_type character varying,
+    barcode character varying(50),
+    name character varying NOT NULL,
+    short_description text,
+    long_description text,
+    brand_id bigint,
+    unit_measure character varying NOT NULL,
+    is_assembled boolean DEFAULT false,
+    is_component boolean DEFAULT false,
+    state character varying NOT NULL,
+    state_at timestamp(6) without time zone NOT NULL,
+    state_notes text,
+    states jsonb[],
+    tags character varying[],
+    notes text,
+    search_text tsvector,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.products_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: products_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -690,6 +741,13 @@ ALTER TABLE ONLY public.languages ALTER COLUMN id SET DEFAULT nextval('public.la
 
 
 --
+-- Name: products id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.products_id_seq'::regclass);
+
+
+--
 -- Name: taxes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -789,6 +847,14 @@ ALTER TABLE ONLY public.currencies
 
 ALTER TABLE ONLY public.languages
     ADD CONSTRAINT languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: products products_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT products_pkey PRIMARY KEY (id);
 
 
 --
@@ -1089,6 +1155,76 @@ CREATE UNIQUE INDEX index_languages_on_uid ON public.languages USING btree (uid)
 
 
 --
+-- Name: index_products_on_barcode; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_products_on_barcode ON public.products USING btree (barcode);
+
+
+--
+-- Name: index_products_on_barcode_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_barcode_type ON public.products USING btree (barcode_type);
+
+
+--
+-- Name: index_products_on_brand_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_brand_id ON public.products USING btree (brand_id);
+
+
+--
+-- Name: index_products_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_products_on_code ON public.products USING btree (code);
+
+
+--
+-- Name: index_products_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_products_on_name ON public.products USING btree (name);
+
+
+--
+-- Name: index_products_on_search_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_search_text ON public.products USING gin (search_text);
+
+
+--
+-- Name: index_products_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_state ON public.products USING btree (state);
+
+
+--
+-- Name: index_products_on_tags; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_tags ON public.products USING gin (tags);
+
+
+--
+-- Name: index_products_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_products_on_uid ON public.products USING btree (uid);
+
+
+--
+-- Name: index_products_on_unit_measure; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_products_on_unit_measure ON public.products USING btree (unit_measure);
+
+
+--
 -- Name: index_taxes_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1173,6 +1309,14 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 
 
 --
+-- Name: products fk_rails_2e9b78a2e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_2e9b78a2e7 FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
+
+
+--
 -- Name: cost_centers fk_rails_40f7023c4c; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1229,6 +1373,14 @@ ALTER TABLE ONLY public.brands
 
 
 --
+-- Name: products fk_rails_aefb4f3a33; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_aefb4f3a33 FOREIGN KEY (created_by_id) REFERENCES public.users(id);
+
+
+--
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1250,6 +1402,14 @@ ALTER TABLE ONLY public.companies
 
 ALTER TABLE ONLY public.colors
     ADD CONSTRAINT fk_rails_e89ea06acf FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
+
+
+--
+-- Name: products fk_rails_f3b4d49caa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.products
+    ADD CONSTRAINT fk_rails_f3b4d49caa FOREIGN KEY (brand_id) REFERENCES public.brands(id);
 
 
 --
@@ -1277,6 +1437,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230410105721'),
 ('20230410150932'),
 ('20230410151352'),
-('20230410151917');
+('20230410151917'),
+('20230410225735');
 
 

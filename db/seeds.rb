@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM products')
 ActiveRecord::Base.connection.execute('DELETE FROM brands')
 ActiveRecord::Base.connection.execute('DELETE FROM colors')
 ActiveRecord::Base.connection.execute('DELETE FROM cost_centers')
@@ -188,3 +189,92 @@ end
 brand_1 = Brand.all[1]
 brand_2 = Brand.all[2]
 brand_3 = Brand.all[3]
+
+
+################################################################################################
+#
+# PRODUCTS
+#
+################################################################################################
+
+Rails.logger.debug 'Creating products ...'
+
+Faker::Alphanumeric.unique.clear
+Faker::Commerce.unique.clear
+Faker::Code.unique.clear
+
+5.times do
+  product = Product.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 10, min_alpha: 3, min_numeric: 7),
+    name: Faker::Commerce.unique.product_name,
+    barcode: Faker::Code.ean,
+    barcode_type: :ean,
+    brand: brand_1,
+    unit_measure: :unit,
+    is_component: true,
+    short_description: Faker::Lorem.sentence,
+    long_description: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user, 
+    updated_by: admin_user)
+end
+
+15.times do
+  product = Product.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 10, min_alpha: 3, min_numeric: 7),
+    name: Faker::Commerce.unique.product_name,
+    barcode: Faker::Code.ean,
+    barcode_type: :ean,
+    brand: brand_2,
+    unit_measure: :unit,
+    is_component: true,
+    short_description: Faker::Lorem.sentence,
+    long_description: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user, 
+    updated_by: admin_user)
+end
+
+55.times do
+  product = Product.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 10, min_alpha: 3, min_numeric: 7),
+    name: Faker::Commerce.unique.product_name,
+    barcode: Faker::Code.ean,
+    barcode_type: :ean,
+    unit_measure: :unit,
+    is_component: true,
+    short_description: Faker::Lorem.sentence,
+    long_description: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user,
+    updated_by: admin_user)
+end
+
+product_component_1 = Product.all[1]
+product_component_2 = Product.all[2]
+product_component_3 = Product.all[3]
+
+25.times do
+  product = Product.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 10, min_alpha: 3, min_numeric: 7),
+    name: Faker::Commerce.unique.product_name,
+    barcode: Faker::Code.ean,
+    barcode_type: :ean,
+    unit_measure: :unit,
+    is_assembled: true,
+    short_description: Faker::Lorem.sentence,
+    long_description: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user, 
+    updated_by: admin_user)  
+end
+
+product_assembled_1 = Product.where('is_assembled = true').all[1]
+product_assembled_2 = Product.where('is_assembled = true').all[2]
+product_assembled_3 = Product.where('is_assembled = true').all[3]
+
+# TODO: Add images
