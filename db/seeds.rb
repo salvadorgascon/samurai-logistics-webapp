@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM companies')
 ActiveRecord::Base.connection.execute('DELETE FROM users')
 ActiveRecord::Base.connection.execute('DELETE FROM taxes')
 ActiveRecord::Base.connection.execute('DELETE FROM currencies')
@@ -21,6 +22,9 @@ ActiveRecord::Base.connection.execute('DELETE FROM languages')
 ActiveRecord::Base.connection.execute('DELETE FROM active_storage_variant_records')
 ActiveRecord::Base.connection.execute('DELETE FROM active_storage_attachments')
 ActiveRecord::Base.connection.execute('DELETE FROM active_storage_blobs')
+
+# Initialize Fake with en language
+Faker::Config.locale = 'en'
 
 ################################################################################################
 #
@@ -85,3 +89,41 @@ admin_user = User.new(
 
 admin_user.skip_confirmation_notification!
 admin_user.save!
+
+
+################################################################################################
+#
+# COMPANIES
+#
+################################################################################################
+
+Rails.logger.debug 'Creating companies ...'
+
+Faker::Alphanumeric.unique.clear
+Faker::Company.unique.clear
+Faker::Finance.unique.clear
+
+company_1 = Company.create!(
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
+    name: Faker::Company.unique.name,
+    vat_number: Faker::Finance.unique.vat_number,
+    notes: Faker::Lorem.paragraph,
+    created_by: admin_user,
+    updated_by: admin_user)
+
+company_2 = Company.create!(
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
+    name: Faker::Company.unique.name,
+    vat_number: Faker::Finance.unique.vat_number,
+    notes: Faker::Lorem.paragraph,
+    created_by: admin_user,
+    updated_by: admin_user)
+
+company_3 = Company.create!(
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
+    name: Faker::Company.unique.name,
+    vat_number: Faker::Finance.unique.vat_number,
+    notes: Faker::Lorem.paragraph,
+    created_by: admin_user,
+    updated_by: admin_user)
+    
