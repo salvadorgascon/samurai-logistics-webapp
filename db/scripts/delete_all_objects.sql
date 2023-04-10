@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS brands;
 DROP TABLE IF EXISTS colors;
 DROP TABLE IF EXISTS cost_centers;
 

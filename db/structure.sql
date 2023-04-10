@@ -251,6 +251,49 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: brands; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.brands (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    code character varying(50) NOT NULL,
+    name character varying NOT NULL,
+    state character varying NOT NULL,
+    state_at timestamp(6) without time zone NOT NULL,
+    state_notes text,
+    states jsonb[],
+    notes text,
+    tags character varying[],
+    search_text tsvector,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: brands_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.brands_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: brands_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.brands_id_seq OWNED BY public.brands.id;
+
+
+--
 -- Name: colors; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -598,6 +641,13 @@ ALTER TABLE ONLY public.active_storage_variant_records ALTER COLUMN id SET DEFAU
 
 
 --
+-- Name: brands id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.brands ALTER COLUMN id SET DEFAULT nextval('public.brands_id_seq'::regclass);
+
+
+--
 -- Name: colors id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -683,6 +733,14 @@ ALTER TABLE ONLY public.active_storage_variant_records
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: brands brands_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.brands
+    ADD CONSTRAINT brands_pkey PRIMARY KEY (id);
 
 
 --
@@ -783,6 +841,48 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 --
 
 CREATE UNIQUE INDEX index_active_storage_variant_records_uniqueness ON public.active_storage_variant_records USING btree (blob_id, variation_digest);
+
+
+--
+-- Name: index_brands_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_brands_on_code ON public.brands USING btree (code);
+
+
+--
+-- Name: index_brands_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_brands_on_name ON public.brands USING btree (name);
+
+
+--
+-- Name: index_brands_on_search_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_brands_on_search_text ON public.brands USING gin (search_text);
+
+
+--
+-- Name: index_brands_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_brands_on_state ON public.brands USING btree (state);
+
+
+--
+-- Name: index_brands_on_tags; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_brands_on_tags ON public.brands USING gin (tags);
+
+
+--
+-- Name: index_brands_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_brands_on_uid ON public.brands USING btree (uid);
 
 
 --
@@ -1105,11 +1205,27 @@ ALTER TABLE ONLY public.cost_centers
 
 
 --
+-- Name: brands fk_rails_6e0f7750c4; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.brands
+    ADD CONSTRAINT fk_rails_6e0f7750c4 FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
+
+
+--
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_storage_variant_records
     ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: brands fk_rails_aa0c0af401; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.brands
+    ADD CONSTRAINT fk_rails_aa0c0af401 FOREIGN KEY (created_by_id) REFERENCES public.users(id);
 
 
 --
@@ -1160,6 +1276,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230409211224'),
 ('20230410105721'),
 ('20230410150932'),
-('20230410151352');
+('20230410151352'),
+('20230410151917');
 
 

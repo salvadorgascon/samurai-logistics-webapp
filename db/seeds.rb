@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM brands')
 ActiveRecord::Base.connection.execute('DELETE FROM colors')
 ActiveRecord::Base.connection.execute('DELETE FROM cost_centers')
 ActiveRecord::Base.connection.execute('DELETE FROM companies')
@@ -163,3 +164,27 @@ Color.create!(uid: SecureRandom.uuid, name: 'Negro',created_by: admin_user, upda
 Color.create!(uid: SecureRandom.uuid, name: 'Rojo',created_by: admin_user, updated_by: admin_user)
 Color.create!(uid: SecureRandom.uuid, name: 'Rosa',created_by: admin_user, updated_by: admin_user)
 Color.create!(uid: SecureRandom.uuid, name: 'Verde',created_by: admin_user, updated_by: admin_user)
+
+################################################################################################
+#
+# BRANDS
+#
+################################################################################################
+
+Rails.logger.debug 'Creating brands ...'
+
+Faker::Alphanumeric.unique.clear
+Faker::Appliance.unique.clear
+
+10.times do |i|
+  brand = Brand.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 4),
+    name: Faker::Appliance.unique.brand,
+    created_by: admin_user,
+    updated_by: admin_user)
+end
+
+brand_1 = Brand.all[1]
+brand_2 = Brand.all[2]
+brand_3 = Brand.all[3]
