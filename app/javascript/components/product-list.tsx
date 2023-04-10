@@ -39,7 +39,7 @@ export default function ProductList() {
             </Stack>            
         </Grid>
 
-        <Grid container md={12} className="mt-4 pl-4">
+        <Grid container className="mt-4 pl-4">
             <Grid item md={6}>
                 <TextField fullWidth  label="Code" className="pr-1" />            
             </Grid>
