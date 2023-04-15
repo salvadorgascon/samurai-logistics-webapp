@@ -572,6 +572,57 @@ ALTER SEQUENCE public.products_id_seq OWNED BY public.products.id;
 
 
 --
+-- Name: sales_people; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.sales_people (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    first_name character varying,
+    last_name character varying,
+    full_name character varying,
+    id_number character varying,
+    ssn_number character varying,
+    email character varying,
+    phone character varying,
+    fax character varying,
+    mobile character varying,
+    direct_phone character varying,
+    state character varying NOT NULL,
+    state_at timestamp(6) without time zone NOT NULL,
+    state_notes text,
+    states jsonb[],
+    notes text,
+    tags character varying[],
+    search_text tsvector,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: sales_people_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.sales_people_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: sales_people_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.sales_people_id_seq OWNED BY public.sales_people.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -748,6 +799,13 @@ ALTER TABLE ONLY public.products ALTER COLUMN id SET DEFAULT nextval('public.pro
 
 
 --
+-- Name: sales_people id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sales_people ALTER COLUMN id SET DEFAULT nextval('public.sales_people_id_seq'::regclass);
+
+
+--
 -- Name: taxes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -855,6 +913,14 @@ ALTER TABLE ONLY public.languages
 
 ALTER TABLE ONLY public.products
     ADD CONSTRAINT products_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: sales_people sales_people_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sales_people
+    ADD CONSTRAINT sales_people_pkey PRIMARY KEY (id);
 
 
 --
@@ -1225,6 +1291,90 @@ CREATE INDEX index_products_on_unit_measure ON public.products USING btree (unit
 
 
 --
+-- Name: index_sales_people_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sales_people_on_email ON public.sales_people USING btree (email);
+
+
+--
+-- Name: index_sales_people_on_fax; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_people_on_fax ON public.sales_people USING btree (fax);
+
+
+--
+-- Name: index_sales_people_on_first_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_people_on_first_name ON public.sales_people USING btree (first_name);
+
+
+--
+-- Name: index_sales_people_on_id_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sales_people_on_id_number ON public.sales_people USING btree (id_number);
+
+
+--
+-- Name: index_sales_people_on_last_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_people_on_last_name ON public.sales_people USING btree (last_name);
+
+
+--
+-- Name: index_sales_people_on_mobile; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_people_on_mobile ON public.sales_people USING btree (mobile);
+
+
+--
+-- Name: index_sales_people_on_phone; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_people_on_phone ON public.sales_people USING btree (phone);
+
+
+--
+-- Name: index_sales_people_on_search_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_people_on_search_text ON public.sales_people USING gin (search_text);
+
+
+--
+-- Name: index_sales_people_on_ssn_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sales_people_on_ssn_number ON public.sales_people USING btree (ssn_number);
+
+
+--
+-- Name: index_sales_people_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_people_on_state ON public.sales_people USING btree (state);
+
+
+--
+-- Name: index_sales_people_on_tags; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_sales_people_on_tags ON public.sales_people USING gin (tags);
+
+
+--
+-- Name: index_sales_people_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_sales_people_on_uid ON public.sales_people USING btree (uid);
+
+
+--
 -- Name: index_taxes_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1341,6 +1491,14 @@ ALTER TABLE ONLY public.colors
 
 
 --
+-- Name: sales_people fk_rails_62c47d281f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sales_people
+    ADD CONSTRAINT fk_rails_62c47d281f FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
+
+
+--
 -- Name: cost_centers fk_rails_65bbfc3933; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1362,6 +1520,14 @@ ALTER TABLE ONLY public.brands
 
 ALTER TABLE ONLY public.active_storage_variant_records
     ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: sales_people fk_rails_a74d0187de; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.sales_people
+    ADD CONSTRAINT fk_rails_a74d0187de FOREIGN KEY (created_by_id) REFERENCES public.users(id);
 
 
 --
@@ -1438,6 +1604,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230410150932'),
 ('20230410151352'),
 ('20230410151917'),
-('20230410225735');
+('20230410225735'),
+('20230415123221');
 
 

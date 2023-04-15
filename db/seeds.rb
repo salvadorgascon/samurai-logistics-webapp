@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM sales_people')
 ActiveRecord::Base.connection.execute('DELETE FROM products')
 ActiveRecord::Base.connection.execute('DELETE FROM brands')
 ActiveRecord::Base.connection.execute('DELETE FROM colors')
@@ -278,3 +279,35 @@ product_assembled_2 = Product.where('is_assembled = true').all[2]
 product_assembled_3 = Product.where('is_assembled = true').all[3]
 
 # TODO: Add images
+
+
+################################################################################################
+#
+# SALES_PEOPLE
+#
+################################################################################################
+
+Rails.logger.debug 'Creating sales people ...'
+
+Faker::IDNumber.unique.clear
+Faker::Internet.unique.clear
+Faker::PhoneNumber.unique.clear
+
+5.times do
+  SalesPerson.create!(
+    uid: SecureRandom.uuid,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    id_number: Faker::IDNumber.unique.spanish_citizen_number,
+    email: Faker::Internet.unique.email,
+    mobile: Faker::PhoneNumber.unique.cell_phone,
+    notes: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user,
+    updated_by: admin_user)
+end
+
+sales_person_1 = SalesPerson.all[1]
+sales_person_2 = SalesPerson.all[2]
+sales_person_3 = SalesPerson.all[3]
+sales_person_4 = SalesPerson.all[4]

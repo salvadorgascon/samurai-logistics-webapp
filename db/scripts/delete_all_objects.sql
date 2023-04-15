@@ -1,3 +1,5 @@
+
+DROP TABLE IF EXISTS sales_people;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS brands;
 DROP TABLE IF EXISTS colors;
