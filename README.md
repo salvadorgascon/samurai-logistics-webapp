@@ -4,6 +4,25 @@ Web application for warehouse (WMS) and transportation (TMS) management.
 
 ##  Features
 
+## Roadmap
+
+- Multicompany
+- Multiuser
+- Products
+- Product composition and attributes
+- Multiwarehouse (customer warehouse and supplier warehouse are supported)
+- Warehouse locations (corridor, shelves, height and cubic)
+- Stock adjustements
+- Stock transfers between warehouses
+- Stock counts
+- Customers
+- Sales orders
+- Sales quotes
+- Shipments
+- Suppliers
+- Purchase orders
+- Supplier returns
+
 ## Stack
 
 - Frontend:
@@ -24,7 +43,7 @@ Web application for warehouse (WMS) and transportation (TMS) management.
   - RSpec 3.12
   - SimpleCov 0.22
   - PostgreSQL 14
-  - Redis 6.0.16
+  - Redis 7.0.10
   - MemCached 1.6.14
 
 ## Installation
