@@ -2,6 +2,8 @@
 
 Web application for warehouse (WMS) and transportation (TMS) management.
 
+##  Features
+
 ## Stack
 
 - Frontend:
@@ -22,6 +24,8 @@ Web application for warehouse (WMS) and transportation (TMS) management.
   - RSpec 3.12
   - SimpleCov 0.22
   - PostgreSQL 14
+  - Redis 6.0.16
+  - MemCached 1.6.14
 
 ## Installation
 
