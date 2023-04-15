@@ -485,6 +485,52 @@ ALTER SEQUENCE public.currencies_id_seq OWNED BY public.currencies.id;
 
 
 --
+-- Name: customers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.customers (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    code character varying(50) NOT NULL,
+    name character varying NOT NULL,
+    vat_number character varying,
+    ein_number character varying,
+    tin_number character varying,
+    state character varying NOT NULL,
+    state_at timestamp(6) without time zone NOT NULL,
+    state_notes text,
+    states jsonb[],
+    notes text,
+    tags character varying[],
+    search_text tsvector,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: customers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.customers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: customers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.customers_id_seq OWNED BY public.customers.id;
+
+
+--
 -- Name: languages; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -785,6 +831,13 @@ ALTER TABLE ONLY public.currencies ALTER COLUMN id SET DEFAULT nextval('public.c
 
 
 --
+-- Name: customers id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.customers ALTER COLUMN id SET DEFAULT nextval('public.customers_id_seq'::regclass);
+
+
+--
 -- Name: languages id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -897,6 +950,14 @@ ALTER TABLE ONLY public.countries
 
 ALTER TABLE ONLY public.currencies
     ADD CONSTRAINT currencies_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: customers customers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.customers
+    ADD CONSTRAINT customers_pkey PRIMARY KEY (id);
 
 
 --
@@ -1186,6 +1247,69 @@ CREATE UNIQUE INDEX index_currencies_on_uid ON public.currencies USING btree (ui
 
 
 --
+-- Name: index_customers_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_customers_on_code ON public.customers USING btree (code);
+
+
+--
+-- Name: index_customers_on_ein_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_customers_on_ein_number ON public.customers USING btree (ein_number);
+
+
+--
+-- Name: index_customers_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_customers_on_name ON public.customers USING btree (name);
+
+
+--
+-- Name: index_customers_on_search_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_customers_on_search_text ON public.customers USING gin (search_text);
+
+
+--
+-- Name: index_customers_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_customers_on_state ON public.customers USING btree (state);
+
+
+--
+-- Name: index_customers_on_tags; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_customers_on_tags ON public.customers USING gin (tags);
+
+
+--
+-- Name: index_customers_on_tin_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_customers_on_tin_number ON public.customers USING btree (tin_number);
+
+
+--
+-- Name: index_customers_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_customers_on_uid ON public.customers USING btree (uid);
+
+
+--
+-- Name: index_customers_on_vat_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_customers_on_vat_number ON public.customers USING btree (vat_number);
+
+
+--
 -- Name: index_languages_on_iso_code_639_1; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1459,6 +1583,14 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 
 
 --
+-- Name: customers fk_rails_0925b24147; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.customers
+    ADD CONSTRAINT fk_rails_0925b24147 FOREIGN KEY (created_by_id) REFERENCES public.users(id);
+
+
+--
 -- Name: products fk_rails_2e9b78a2e7; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1512,6 +1644,14 @@ ALTER TABLE ONLY public.cost_centers
 
 ALTER TABLE ONLY public.brands
     ADD CONSTRAINT fk_rails_6e0f7750c4 FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
+
+
+--
+-- Name: customers fk_rails_70952c67aa; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.customers
+    ADD CONSTRAINT fk_rails_70952c67aa FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
 
 
 --
@@ -1605,6 +1745,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230410151352'),
 ('20230410151917'),
 ('20230410225735'),
-('20230415123221');
+('20230415123221'),
+('20230415123943');
 
 

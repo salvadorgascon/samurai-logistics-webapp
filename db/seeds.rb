@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM customers')
 ActiveRecord::Base.connection.execute('DELETE FROM sales_people')
 ActiveRecord::Base.connection.execute('DELETE FROM products')
 ActiveRecord::Base.connection.execute('DELETE FROM brands')
@@ -311,3 +312,51 @@ sales_person_1 = SalesPerson.all[1]
 sales_person_2 = SalesPerson.all[2]
 sales_person_3 = SalesPerson.all[3]
 sales_person_4 = SalesPerson.all[4]
+
+
+################################################################################################
+#
+# CUSTOMERS
+#
+################################################################################################
+
+Rails.logger.debug 'Creating customers ...'
+
+Faker::Alphanumeric.unique.clear
+Faker::Company.unique.clear
+Faker::Finance.unique.clear
+Faker::Name.unique.clear
+Faker::Internet.unique.clear
+Faker::PhoneNumber.unique.clear
+Faker::Bank.unique.clear
+
+
+95.times do
+  customer = Customer.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 10, min_alpha: 1, min_numeric: 9),
+    name: Faker::Company.unique.name,
+    vat_number: Faker::Finance.unique.vat_number,
+    notes: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user,
+    updated_by: admin_user)
+end
+
+customer_1 = Customer.all[1]
+customer_2 = Customer.all[2]
+customer_3 = Customer.all[3]
+
+5.times do
+  Customer.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 10, min_alpha: 1, min_numeric: 9),
+    name: Faker::Company.unique.name,
+    vat_number: Faker::Finance.unique.vat_number,
+    notes: Faker::Lorem.paragraph,
+    state: :archived,
+    state_notes: Faker::Lorem.sentence,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user,
+    updated_by: admin_user)
+end
