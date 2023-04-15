@@ -13,6 +13,12 @@ Rails.application.routes.draw do
     omniauth: 'web/auth/omniauth',
   }  
 
+  if Rails.env.development?
+    require 'sidekiq/web'    
+    require 'sidekiq-scheduler/web'
+    mount Sidekiq::Web => '/sidekiq'
+  end
+
   # Defines the root path route ("/")
   root "web/home#index"
 end
