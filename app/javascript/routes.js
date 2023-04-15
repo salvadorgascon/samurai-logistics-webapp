@@ -801,6 +801,14 @@ export const root_path = __jsr.r({}, [7,"/"]);
 
 /**
  * Generates rails route to
+ * /sidekiq
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const sidekiq_web_path = __jsr.r({}, [2,[7,"/"],[6,"sidekiq"]]);
+
+/**
+ * Generates rails route to
  * /recede_historical_location(.:format)
  * @param {object | undefined} options
  * @returns {string} route path

@@ -458,6 +458,16 @@ export const root_path: ((
 
 /**
  * Generates rails route to
+ * /sidekiq
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const sidekiq_web_path: ((
+  options?: {} & RouteOptions
+) => string) & RouteHelperExtras;
+
+/**
+ * Generates rails route to
  * /recede_historical_location(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
