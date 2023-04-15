@@ -185,3 +185,5 @@ gem 'pg'
 # Named scopes for postgresql full text search
 gem 'pg_search'
 
+# Client connector for Redis
+gem 'redis'
