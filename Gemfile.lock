@@ -387,6 +387,7 @@ DEPENDENCIES
   bootsnap
   bullet
   capybara
+  connection_pool
   cssbundling-rails
   database_cleaner-active_record
   debug

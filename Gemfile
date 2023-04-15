@@ -188,6 +188,9 @@ gem 'pg_search'
 # Client connector for Redis
 gem 'redis'
 
+# Pool for MemCached and Redis
+gem 'connection_pool'
+
 # Jobs manager
 gem 'sidekiq'
 
