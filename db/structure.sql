@@ -814,6 +814,54 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: warehouses; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.warehouses (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    code character varying(50) NOT NULL,
+    barcode_type character varying,
+    barcode character varying(50),
+    name character varying NOT NULL,
+    supplier_id bigint,
+    customer_id bigint,
+    is_default boolean DEFAULT false,
+    state character varying NOT NULL,
+    state_at timestamp(6) without time zone NOT NULL,
+    state_notes text,
+    states jsonb[],
+    notes text,
+    tags character varying[],
+    search_text tsvector,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: warehouses_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.warehouses_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: warehouses_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.warehouses_id_seq OWNED BY public.warehouses.id;
+
+
+--
 -- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -923,6 +971,13 @@ ALTER TABLE ONLY public.taxes ALTER COLUMN id SET DEFAULT nextval('public.taxes_
 --
 
 ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Name: warehouses id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.warehouses ALTER COLUMN id SET DEFAULT nextval('public.warehouses_id_seq'::regclass);
 
 
 --
@@ -1067,6 +1122,14 @@ ALTER TABLE ONLY public.taxes
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: warehouses warehouses_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.warehouses
+    ADD CONSTRAINT warehouses_pkey PRIMARY KEY (id);
 
 
 --
@@ -1707,6 +1770,76 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 
 
 --
+-- Name: index_warehouses_on_barcode; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_warehouses_on_barcode ON public.warehouses USING btree (barcode);
+
+
+--
+-- Name: index_warehouses_on_barcode_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_warehouses_on_barcode_type ON public.warehouses USING btree (barcode_type);
+
+
+--
+-- Name: index_warehouses_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_warehouses_on_code ON public.warehouses USING btree (code);
+
+
+--
+-- Name: index_warehouses_on_customer_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_warehouses_on_customer_id ON public.warehouses USING btree (customer_id);
+
+
+--
+-- Name: index_warehouses_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_warehouses_on_name ON public.warehouses USING btree (name);
+
+
+--
+-- Name: index_warehouses_on_search_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_warehouses_on_search_text ON public.warehouses USING gin (search_text);
+
+
+--
+-- Name: index_warehouses_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_warehouses_on_state ON public.warehouses USING btree (state);
+
+
+--
+-- Name: index_warehouses_on_supplier_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_warehouses_on_supplier_id ON public.warehouses USING btree (supplier_id);
+
+
+--
+-- Name: index_warehouses_on_tags; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_warehouses_on_tags ON public.warehouses USING gin (tags);
+
+
+--
+-- Name: index_warehouses_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_warehouses_on_uid ON public.warehouses USING btree (uid);
+
+
+--
 -- Name: customers fk_rails_0925b24147; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1779,6 +1912,14 @@ ALTER TABLE ONLY public.cost_centers
 
 
 --
+-- Name: warehouses fk_rails_69e5fa358b; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.warehouses
+    ADD CONSTRAINT fk_rails_69e5fa358b FOREIGN KEY (customer_id) REFERENCES public.customers(id);
+
+
+--
 -- Name: brands fk_rails_6e0f7750c4; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1800,6 +1941,14 @@ ALTER TABLE ONLY public.customers
 
 ALTER TABLE ONLY public.active_storage_variant_records
     ADD CONSTRAINT fk_rails_993965df05 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: warehouses fk_rails_9a09e153a7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.warehouses
+    ADD CONSTRAINT fk_rails_9a09e153a7 FOREIGN KEY (created_by_id) REFERENCES public.users(id);
 
 
 --
@@ -1827,11 +1976,27 @@ ALTER TABLE ONLY public.products
 
 
 --
+-- Name: warehouses fk_rails_bc49502b24; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.warehouses
+    ADD CONSTRAINT fk_rails_bc49502b24 FOREIGN KEY (supplier_id) REFERENCES public.suppliers(id);
+
+
+--
 -- Name: active_storage_attachments fk_rails_c3b3935057; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.active_storage_attachments
     ADD CONSTRAINT fk_rails_c3b3935057 FOREIGN KEY (blob_id) REFERENCES public.active_storage_blobs(id);
+
+
+--
+-- Name: warehouses fk_rails_caa371610f; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.warehouses
+    ADD CONSTRAINT fk_rails_caa371610f FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
 
 
 --
@@ -1887,6 +2052,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230410225735'),
 ('20230415123221'),
 ('20230415123943'),
-('20230415124744');
+('20230415124744'),
+('20230415125609');
 
 

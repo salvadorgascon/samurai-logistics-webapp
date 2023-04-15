@@ -13,6 +13,7 @@ end
 
 Rails.logger.debug 'Deleting data ...'
 
+ActiveRecord::Base.connection.execute('DELETE FROM warehouses')
 ActiveRecord::Base.connection.execute('DELETE FROM suppliers')
 ActiveRecord::Base.connection.execute('DELETE FROM customers')
 ActiveRecord::Base.connection.execute('DELETE FROM sales_people')
@@ -407,3 +408,60 @@ end
 supplier_1 = Supplier.all[1]
 supplier_2 = Supplier.all[2]
 supplier_3 = Supplier.all[3]
+
+
+################################################################################################
+#
+# WAREHOUSES
+#
+################################################################################################
+
+Rails.logger.debug 'Creating warehouses ...'
+
+Faker::Alphanumeric.unique.clear
+
+warehouse_1 = Warehouse.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
+    barcode: Faker::Code.ean,
+    barcode_type: :ean,
+    name: 'Madrid',
+    notes: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user, 
+    updated_by: admin_user)
+
+warehouse_2 = Warehouse.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
+    barcode: Faker::Code.ean,
+    barcode_type: :ean,
+    name: 'Barcelona',
+    notes: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user,
+    updated_by: admin_user)
+
+warehouse_3 = Warehouse.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
+    barcode: Faker::Code.ean,
+    barcode_type: :ean,
+    name: 'Getafe',
+    notes: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user, 
+    updated_by: admin_user)
+
+warehouse_4 = Warehouse.create!(
+    uid: SecureRandom.uuid,
+    code: Faker::Alphanumeric.unique.alphanumeric(number: 3, min_numeric: 3),
+    barcode: Faker::Code.ean,
+    barcode_type: :ean,
+    name: 'Valencia',
+    supplier: supplier_3,
+    notes: Faker::Lorem.paragraph,
+    tags: Faker::Lorem.words(number: 4),
+    created_by: admin_user,
+    updated_by: admin_user)
+
