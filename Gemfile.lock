@@ -127,6 +127,8 @@ GEM
       dotenv (= 2.8.1)
       railties (>= 3.2)
     erubi (1.12.0)
+    et-orbi (1.2.7)
+      tzinfo
     factory_bot (6.2.1)
       activesupport (>= 5.0.0)
     factory_bot_rails (6.2.0)
@@ -138,6 +140,9 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
+    fugit (1.8.1)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
@@ -214,6 +219,7 @@ GEM
       activesupport (>= 3.0.0)
     pundit-matchers (1.8.4)
       rspec-rails (>= 3.0.0)
+    raabro (1.4.0)
     racc (1.6.2)
     rack (2.2.6.4)
     rack-protection (3.0.5)
@@ -303,12 +309,23 @@ GEM
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    rufus-scheduler (3.8.2)
+      fugit (~> 1.1, >= 1.1.6)
     selenium-webdriver (4.8.6)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     shoulda-matchers (5.3.0)
       activesupport (>= 5.2.0)
+    sidekiq (7.0.8)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.11.0)
+    sidekiq-scheduler (5.0.2)
+      rufus-scheduler (~> 3.2)
+      sidekiq (>= 6, < 8)
+      tilt (>= 1.4.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -328,6 +345,7 @@ GEM
     strip_attributes (1.13.0)
       activemodel (>= 3.0, < 8.0)
     thor (1.2.1)
+    tilt (2.1.0)
     timeout (0.3.2)
     turbo-rails (1.4.0)
       actionpack (>= 6.0.0)
@@ -405,6 +423,8 @@ DEPENDENCIES
   ruby-progressbar
   selenium-webdriver
   shoulda-matchers
+  sidekiq
+  sidekiq-scheduler
   simplecov
   sprockets-rails
   sqlite3 (~> 1.4)

@@ -187,3 +187,9 @@ gem 'pg_search'
 
 # Client connector for Redis
 gem 'redis'
+
+# Jobs manager
+gem 'sidekiq'
+
+# Scheduler for run jobs
+gem 'sidekiq-scheduler'
