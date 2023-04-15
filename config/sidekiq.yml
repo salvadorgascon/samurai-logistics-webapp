@@ -1,0 +1,16 @@
+:concurrency: 5
+staging:
+  :concurrency: 10
+production:
+  :concurrency: 20
+  
+# :queues:
+#  - critical
+#  - default
+#  - low
+
+# :schedule:
+  # my_job:
+    # cron: '10 * * * *'   # Runs once per 10 hour
+    # class: MyJobClass
+    # enabled: true
