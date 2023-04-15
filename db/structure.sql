@@ -678,6 +678,52 @@ CREATE TABLE public.schema_migrations (
 
 
 --
+-- Name: suppliers; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.suppliers (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    code character varying(50) NOT NULL,
+    name character varying NOT NULL,
+    vat_number character varying,
+    ein_number character varying,
+    tin_number character varying,
+    state character varying NOT NULL,
+    state_at timestamp(6) without time zone NOT NULL,
+    state_notes text,
+    states jsonb[],
+    notes text,
+    tags character varying[],
+    search_text tsvector,
+    created_by_id integer NOT NULL,
+    updated_by_id integer NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: suppliers_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.suppliers_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: suppliers_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.suppliers_id_seq OWNED BY public.suppliers.id;
+
+
+--
 -- Name: taxes; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -859,6 +905,13 @@ ALTER TABLE ONLY public.sales_people ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: suppliers id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.suppliers ALTER COLUMN id SET DEFAULT nextval('public.suppliers_id_seq'::regclass);
+
+
+--
 -- Name: taxes id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -990,6 +1043,14 @@ ALTER TABLE ONLY public.sales_people
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
+
+
+--
+-- Name: suppliers suppliers_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.suppliers
+    ADD CONSTRAINT suppliers_pkey PRIMARY KEY (id);
 
 
 --
@@ -1499,6 +1560,69 @@ CREATE UNIQUE INDEX index_sales_people_on_uid ON public.sales_people USING btree
 
 
 --
+-- Name: index_suppliers_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_suppliers_on_code ON public.suppliers USING btree (code);
+
+
+--
+-- Name: index_suppliers_on_ein_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_suppliers_on_ein_number ON public.suppliers USING btree (ein_number);
+
+
+--
+-- Name: index_suppliers_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_suppliers_on_name ON public.suppliers USING btree (name);
+
+
+--
+-- Name: index_suppliers_on_search_text; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_suppliers_on_search_text ON public.suppliers USING gin (search_text);
+
+
+--
+-- Name: index_suppliers_on_state; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_suppliers_on_state ON public.suppliers USING btree (state);
+
+
+--
+-- Name: index_suppliers_on_tags; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_suppliers_on_tags ON public.suppliers USING gin (tags);
+
+
+--
+-- Name: index_suppliers_on_tin_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_suppliers_on_tin_number ON public.suppliers USING btree (tin_number);
+
+
+--
+-- Name: index_suppliers_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_suppliers_on_uid ON public.suppliers USING btree (uid);
+
+
+--
+-- Name: index_suppliers_on_vat_number; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_suppliers_on_vat_number ON public.suppliers USING btree (vat_number);
+
+
+--
 -- Name: index_taxes_on_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1588,6 +1712,22 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 
 ALTER TABLE ONLY public.customers
     ADD CONSTRAINT fk_rails_0925b24147 FOREIGN KEY (created_by_id) REFERENCES public.users(id);
+
+
+--
+-- Name: suppliers fk_rails_1857f5e757; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.suppliers
+    ADD CONSTRAINT fk_rails_1857f5e757 FOREIGN KEY (updated_by_id) REFERENCES public.users(id);
+
+
+--
+-- Name: suppliers fk_rails_2afd5b952e; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.suppliers
+    ADD CONSTRAINT fk_rails_2afd5b952e FOREIGN KEY (created_by_id) REFERENCES public.users(id);
 
 
 --
@@ -1746,6 +1886,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230410151917'),
 ('20230410225735'),
 ('20230415123221'),
-('20230415123943');
+('20230415123943'),
+('20230415124744');
 
 
