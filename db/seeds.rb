@@ -12,6 +12,7 @@ if Rails.env.development?
 end
 
 Rails.logger.debug 'Deleting data ...'
+puts 'Deleting data ...'.red
 
 ActiveRecord::Base.connection.execute('DELETE FROM warehouses')
 ActiveRecord::Base.connection.execute('DELETE FROM suppliers')
@@ -41,6 +42,7 @@ Faker::Config.locale = 'en'
 ################################################################################################
 
 Rails.logger.debug 'Creating languages ...'
+puts 'Creating languages ...'.blue
 
 Language.create!(uid: SecureRandom.uuid, name_en: 'Spanish', name_es: 'Español', iso_code_639_1: 'es', locale: 'es')
 Language.create!(uid: SecureRandom.uuid, name_en: 'English', name_es: 'Inglés', iso_code_639_1: 'en', locale: 'en')
@@ -52,10 +54,10 @@ Language.create!(uid: SecureRandom.uuid, name_en: 'English', name_es: 'Inglés',
 ################################################################################################
 
 Rails.logger.debug 'Creating countries ...'
+puts 'Creating countries ...'.blue
 
 spain = Country.create!(uid: SecureRandom.uuid, name_en: 'Spain', name_es: 'España', iso_code_3166_1: 'ES')
 usa = Country.create!(uid: SecureRandom.uuid, name_en: 'United States', name_es: 'Estados Unidos', iso_code_3166_1: 'US')
-
 
 ################################################################################################
 #
@@ -64,6 +66,7 @@ usa = Country.create!(uid: SecureRandom.uuid, name_en: 'United States', name_es:
 ################################################################################################
 
 Rails.logger.debug 'Creating currencies ...'
+puts 'Creating currencies ...'.blue
 
 euro = Currency.create!(uid: SecureRandom.uuid, name_en: 'Euro', name_es:'Euro', iso_code_4217: 'EUR', symbol: '€')
 usd = Currency.create!(uid: SecureRandom.uuid, name_en: 'United States dollar', name_es: 'Dólar estadounidense', iso_code_4217: 'USD', symbol: '$')
@@ -75,6 +78,7 @@ usd = Currency.create!(uid: SecureRandom.uuid, name_en: 'United States dollar', 
 ################################################################################################
 
 Rails.logger.debug 'Creating taxes ...'
+puts 'Creating taxes ...'.blue
 
 iva_10 = Tax.create!(uid: SecureRandom.uuid, code: 'IVA10', name_en: 'I.V.A. 10%', name_es: 'I.V.A. 10%', rate: 10)
 iva_21 = Tax.create!(uid: SecureRandom.uuid, code: 'IVA21', name_en: 'I.V.A. 21%', name_es: 'I.V.A. 21%', rate: 21)
@@ -88,6 +92,7 @@ irpf = Tax.create!(uid: SecureRandom.uuid, code: 'IRPF15', name_en: 'I.R.P.F. 15
 ################################################################################################
 
 Rails.logger.debug 'Creating users ...'
+puts 'Creating users ...'.blue
 
 admin_user = User.new(
   email: 'admin@local',
@@ -106,6 +111,7 @@ admin_user.save!
 ################################################################################################
 
 Rails.logger.debug 'Creating companies ...'
+puts 'Creating companies ...'.blue
 
 Faker::Alphanumeric.unique.clear
 Faker::Company.unique.clear
@@ -146,6 +152,7 @@ company_3 = Company.create!(
 ################################################################################################
 
 Rails.logger.debug 'Creating cost centers ...'
+puts 'Creating cost centers ...'.blue
 
 CostCenter.create!(uid: SecureRandom.uuid, code: '001', name: 'Cost Center 1', created_by: admin_user, updated_by: admin_user)
 CostCenter.create!(uid: SecureRandom.uuid, code: '002', name: 'Cost Center 2', created_by: admin_user, updated_by: admin_user)
@@ -158,6 +165,7 @@ CostCenter.create!(uid: SecureRandom.uuid, code: '003', name: 'Cost Center 3', c
 ################################################################################################
 
 Rails.logger.debug 'Creating colors ...'
+puts 'Creating colors ...'.blue
 
 Color.create!(uid: SecureRandom.uuid, name: 'Amarillo',created_by: admin_user, updated_by: admin_user)
 Color.create!(uid: SecureRandom.uuid, name: 'Azul',created_by: admin_user, updated_by: admin_user)
@@ -177,6 +185,7 @@ Color.create!(uid: SecureRandom.uuid, name: 'Verde',created_by: admin_user, upda
 ################################################################################################
 
 Rails.logger.debug 'Creating brands ...'
+puts 'Creating brands ...'.blue
 
 Faker::Alphanumeric.unique.clear
 Faker::Appliance.unique.clear
@@ -202,6 +211,7 @@ brand_3 = Brand.all[3]
 ################################################################################################
 
 Rails.logger.debug 'Creating products ...'
+puts 'Creating products ...'.blue
 
 Faker::Alphanumeric.unique.clear
 Faker::Commerce.unique.clear
@@ -291,6 +301,7 @@ product_assembled_3 = Product.where('is_assembled = true').all[3]
 ################################################################################################
 
 Rails.logger.debug 'Creating sales people ...'
+puts 'Creating sales people ...'.blue
 
 Faker::IDNumber.unique.clear
 Faker::Internet.unique.clear
@@ -323,6 +334,7 @@ sales_person_4 = SalesPerson.all[4]
 ################################################################################################
 
 Rails.logger.debug 'Creating customers ...'
+puts 'Creating customers ...'.blue
 
 Faker::Alphanumeric.unique.clear
 Faker::Company.unique.clear
@@ -371,6 +383,7 @@ end
 ################################################################################################
 
 Rails.logger.debug 'Creating suppliers ...'
+puts 'Creating suppliers ...'.blue
 
 Faker::Alphanumeric.unique.clear
 Faker::Company.unique.clear
@@ -417,6 +430,7 @@ supplier_3 = Supplier.all[3]
 ################################################################################################
 
 Rails.logger.debug 'Creating warehouses ...'
+puts 'Creating warehouses ...'.blue
 
 Faker::Alphanumeric.unique.clear
 
