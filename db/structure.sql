@@ -764,6 +764,39 @@ ALTER SEQUENCE public.taxes_id_seq OWNED BY public.taxes.id;
 
 
 --
+-- Name: user_settings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_settings (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    user_id bigint NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_settings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_settings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_settings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_settings_id_seq OWNED BY public.user_settings.id;
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -967,6 +1000,13 @@ ALTER TABLE ONLY public.taxes ALTER COLUMN id SET DEFAULT nextval('public.taxes_
 
 
 --
+-- Name: user_settings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_settings ALTER COLUMN id SET DEFAULT nextval('public.user_settings_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1114,6 +1154,14 @@ ALTER TABLE ONLY public.suppliers
 
 ALTER TABLE ONLY public.taxes
     ADD CONSTRAINT taxes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_settings user_settings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_settings
+    ADD CONSTRAINT user_settings_pkey PRIMARY KEY (id);
 
 
 --
@@ -1728,6 +1776,27 @@ CREATE UNIQUE INDEX index_taxes_on_uid ON public.taxes USING btree (uid);
 
 
 --
+-- Name: index_user_settings_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_settings_on_uid ON public.user_settings USING btree (uid);
+
+
+--
+-- Name: index_user_settings_on_user; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_settings_on_user ON public.user_settings USING btree (user_id);
+
+
+--
+-- Name: index_user_settings_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_settings_on_user_id ON public.user_settings USING btree (user_id);
+
+
+--
 -- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2000,6 +2069,14 @@ ALTER TABLE ONLY public.warehouses
 
 
 --
+-- Name: user_settings fk_rails_d1371c6356; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_settings
+    ADD CONSTRAINT fk_rails_d1371c6356 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- Name: companies fk_rails_d315b11075; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2053,6 +2130,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230415123221'),
 ('20230415123943'),
 ('20230415124744'),
-('20230415125609');
+('20230415125609'),
+('20230422082949');
 
 

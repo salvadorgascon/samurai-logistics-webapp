@@ -23,6 +23,7 @@ ActiveRecord::Base.connection.execute('DELETE FROM brands')
 ActiveRecord::Base.connection.execute('DELETE FROM colors')
 ActiveRecord::Base.connection.execute('DELETE FROM cost_centers')
 ActiveRecord::Base.connection.execute('DELETE FROM companies')
+ActiveRecord::Base.connection.execute('DELETE FROM user_settings')
 ActiveRecord::Base.connection.execute('DELETE FROM users')
 ActiveRecord::Base.connection.execute('DELETE FROM taxes')
 ActiveRecord::Base.connection.execute('DELETE FROM currencies')
@@ -94,7 +95,7 @@ irpf = Tax.create!(uid: SecureRandom.uuid, code: 'IRPF15', name_en: 'I.R.P.F. 15
 Rails.logger.debug 'Creating users ...'
 puts 'Creating users ...'.blue
 
-admin_user = User.new(
+admin_user = User.new(uid: SecureRandom.uuid, 
   email: 'admin@local',
   password: 'hrQbE9wDRsdPThZpcUEP',
   password_confirmation: 'hrQbE9wDRsdPThZpcUEP',

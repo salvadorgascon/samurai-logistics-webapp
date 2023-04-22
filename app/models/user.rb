@@ -43,4 +43,17 @@ class User < ApplicationRecord
         :rememberable, :validatable,
         :confirmable, :lockable, :timeoutable, :trackable,
         :omniauthable
+
+  has_one :user_setting, dependent: :destroy
+
+  after_create :create_user_settings
+
+  validates :uid, presence: true
+
+  private
+
+  def create_user_settings
+    user_setting = UserSetting.new(uid: SecureRandom.uuid, user: self)
+    user_setting.save!
+  end
 end
