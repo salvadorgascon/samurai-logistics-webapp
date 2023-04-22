@@ -33,6 +33,7 @@ export default function Header() {
 
       <Button  variant="text" sx={{ color: '#fff' }} component={Link} to={`/`}>Home</Button>
       <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`products`}>Products</Button>            
+      <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`customers`}>Customers</Button>            
     </Toolbar>
     </AppBar>
   </header>);

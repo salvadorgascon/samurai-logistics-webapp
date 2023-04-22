@@ -14,6 +14,7 @@ import Bottom from "./bottom";
 
 import Home from "./home";
 import ProductList from "./product-list";
+import CustomerList from "./customer-list";
 
 const router = createHashRouter([
   {
@@ -35,6 +36,10 @@ const router = createHashRouter([
       {
         path: "products",
         element: <ProductList/>
+      },
+      {
+        path: "customers",
+        element: <CustomerList/>
       },
     ],
   },  
