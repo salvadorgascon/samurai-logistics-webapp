@@ -567,6 +567,43 @@ ALTER SEQUENCE public.languages_id_seq OWNED BY public.languages.id;
 
 
 --
+-- Name: product_components; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.product_components (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    product_id bigint NOT NULL,
+    component_id bigint NOT NULL,
+    product_composition character varying NOT NULL,
+    percentage numeric(10,4),
+    units numeric(10,2),
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: product_components_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.product_components_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_components_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.product_components_id_seq OWNED BY public.product_components.id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -972,6 +1009,13 @@ ALTER TABLE ONLY public.languages ALTER COLUMN id SET DEFAULT nextval('public.la
 
 
 --
+-- Name: product_components id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_components ALTER COLUMN id SET DEFAULT nextval('public.product_components_id_seq'::regclass);
+
+
+--
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1114,6 +1158,14 @@ ALTER TABLE ONLY public.customers
 
 ALTER TABLE ONLY public.languages
     ADD CONSTRAINT languages_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_components product_components_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_components
+    ADD CONSTRAINT product_components_pkey PRIMARY KEY (id);
 
 
 --
@@ -1514,6 +1566,41 @@ CREATE UNIQUE INDEX index_languages_on_name_es ON public.languages USING btree (
 --
 
 CREATE UNIQUE INDEX index_languages_on_uid ON public.languages USING btree (uid);
+
+
+--
+-- Name: index_product_components_on_component; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_product_components_on_component ON public.product_components USING btree (product_id, component_id);
+
+
+--
+-- Name: index_product_components_on_component_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_components_on_component_id ON public.product_components USING btree (component_id);
+
+
+--
+-- Name: index_product_components_on_product_composition; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_components_on_product_composition ON public.product_components USING btree (product_composition);
+
+
+--
+-- Name: index_product_components_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_components_on_product_id ON public.product_components USING btree (product_id);
+
+
+--
+-- Name: index_product_components_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_product_components_on_uid ON public.product_components USING btree (uid);
 
 
 --
@@ -1925,6 +2012,14 @@ ALTER TABLE ONLY public.suppliers
 
 
 --
+-- Name: product_components fk_rails_1c19e7c4c9; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_components
+    ADD CONSTRAINT fk_rails_1c19e7c4c9 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
 -- Name: suppliers fk_rails_2afd5b952e; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2101,6 +2196,14 @@ ALTER TABLE ONLY public.products
 
 
 --
+-- Name: product_components fk_rails_fbcdf8b6ea; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_components
+    ADD CONSTRAINT fk_rails_fbcdf8b6ea FOREIGN KEY (component_id) REFERENCES public.products(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -2131,6 +2234,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230415123943'),
 ('20230415124744'),
 ('20230415125609'),
-('20230422082949');
+('20230422082949'),
+('20230422083856');
 
 

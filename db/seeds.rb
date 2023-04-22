@@ -18,6 +18,7 @@ ActiveRecord::Base.connection.execute('DELETE FROM warehouses')
 ActiveRecord::Base.connection.execute('DELETE FROM suppliers')
 ActiveRecord::Base.connection.execute('DELETE FROM customers')
 ActiveRecord::Base.connection.execute('DELETE FROM sales_people')
+ActiveRecord::Base.connection.execute('DELETE FROM product_components')
 ActiveRecord::Base.connection.execute('DELETE FROM products')
 ActiveRecord::Base.connection.execute('DELETE FROM brands')
 ActiveRecord::Base.connection.execute('DELETE FROM colors')
@@ -284,8 +285,22 @@ product_component_3 = Product.all[3]
     short_description: Faker::Lorem.sentence,
     long_description: Faker::Lorem.paragraph,
     tags: Faker::Lorem.words(number: 4),
-    created_by: admin_user, 
-    updated_by: admin_user)  
+    created_by: admin_user,
+    updated_by: admin_user)
+
+  ProductComponent.create!(
+    uid: SecureRandom.uuid,
+    product: product,
+    component: Product.where("is_component = true").all[1],
+    product_composition: :units,
+    units: 5)
+  
+  ProductComponent.create!(
+    uid: SecureRandom.uuid,
+    product: product,
+    component: Product.where("is_component = true").all[2],
+    product_composition: :units,
+    units: 5)
 end
 
 product_assembled_1 = Product.where('is_assembled = true').all[1]

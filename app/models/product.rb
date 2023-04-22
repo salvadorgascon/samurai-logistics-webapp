@@ -61,6 +61,8 @@ class Product < ApplicationRecord
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
 
+  has_many :product_components, dependent: :destroy
+
   validates :uid, presence: true
 
   validates :code, presence: true
