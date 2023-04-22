@@ -45,6 +45,7 @@ class User < ApplicationRecord
         :omniauthable
 
   has_one :user_setting, dependent: :destroy
+  has_many :user_policies, dependent: :destroy
 
   after_create :create_user_settings
 

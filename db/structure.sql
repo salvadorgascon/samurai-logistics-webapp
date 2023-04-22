@@ -842,6 +842,40 @@ ALTER SEQUENCE public.taxes_id_seq OWNED BY public.taxes.id;
 
 
 --
+-- Name: user_policies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.user_policies (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    user_id bigint NOT NULL,
+    policy character varying NOT NULL,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: user_policies_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.user_policies_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: user_policies_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.user_policies_id_seq OWNED BY public.user_policies.id;
+
+
+--
 -- Name: user_settings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1092,6 +1126,13 @@ ALTER TABLE ONLY public.taxes ALTER COLUMN id SET DEFAULT nextval('public.taxes_
 
 
 --
+-- Name: user_policies id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_policies ALTER COLUMN id SET DEFAULT nextval('public.user_policies_id_seq'::regclass);
+
+
+--
 -- Name: user_settings id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1262,6 +1303,14 @@ ALTER TABLE ONLY public.suppliers
 
 ALTER TABLE ONLY public.taxes
     ADD CONSTRAINT taxes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_policies user_policies_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_policies
+    ADD CONSTRAINT user_policies_pkey PRIMARY KEY (id);
 
 
 --
@@ -1940,6 +1989,34 @@ CREATE UNIQUE INDEX index_taxes_on_uid ON public.taxes USING btree (uid);
 
 
 --
+-- Name: index_user_policies_on_policy; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_policies_on_policy ON public.user_policies USING btree (policy);
+
+
+--
+-- Name: index_user_policies_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_policies_on_uid ON public.user_policies USING btree (uid);
+
+
+--
+-- Name: index_user_policies_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_user_policies_on_user_id ON public.user_policies USING btree (user_id);
+
+
+--
+-- Name: index_user_policies_user_policy; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_user_policies_user_policy ON public.user_policies USING btree (user_id, policy);
+
+
+--
 -- Name: index_user_settings_on_uid; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2289,6 +2366,14 @@ ALTER TABLE ONLY public.product_components
 
 
 --
+-- Name: user_policies fk_rails_ff6a2413d1; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.user_policies
+    ADD CONSTRAINT fk_rails_ff6a2413d1 FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -2321,6 +2406,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230415125609'),
 ('20230422082949'),
 ('20230422083856'),
-('20230422084536');
+('20230422084536'),
+('20230422091419');
 
 
