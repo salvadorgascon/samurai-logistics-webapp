@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS suppliers;
 DROP TABLE IF EXISTS customers;
 DROP TABLE IF EXISTS sales_people;
 
+DROP TABLE IF EXISTS product_specifications;
 DROP TABLE IF EXISTS product_components;
 DROP TABLE IF EXISTS products;
 

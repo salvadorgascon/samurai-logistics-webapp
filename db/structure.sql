@@ -604,6 +604,47 @@ ALTER SEQUENCE public.product_components_id_seq OWNED BY public.product_componen
 
 
 --
+-- Name: product_specifications; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.product_specifications (
+    id bigint NOT NULL,
+    uid uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    product_id bigint NOT NULL,
+    pack_size numeric(10,2),
+    width numeric(10,2),
+    height numeric(10,2),
+    weight numeric(10,2),
+    depth numeric(10,2),
+    cubic numeric(10,2),
+    is_batch_tracking boolean DEFAULT false,
+    is_serial_tracking boolean DEFAULT false,
+    lock_version integer DEFAULT 0,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: product_specifications_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.product_specifications_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: product_specifications_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.product_specifications_id_seq OWNED BY public.product_specifications.id;
+
+
+--
 -- Name: products; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1016,6 +1057,13 @@ ALTER TABLE ONLY public.product_components ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: product_specifications id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_specifications ALTER COLUMN id SET DEFAULT nextval('public.product_specifications_id_seq'::regclass);
+
+
+--
 -- Name: products id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1166,6 +1214,14 @@ ALTER TABLE ONLY public.languages
 
 ALTER TABLE ONLY public.product_components
     ADD CONSTRAINT product_components_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: product_specifications product_specifications_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_specifications
+    ADD CONSTRAINT product_specifications_pkey PRIMARY KEY (id);
 
 
 --
@@ -1601,6 +1657,27 @@ CREATE INDEX index_product_components_on_product_id ON public.product_components
 --
 
 CREATE UNIQUE INDEX index_product_components_on_uid ON public.product_components USING btree (uid);
+
+
+--
+-- Name: index_product_specifications_on_product; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_product_specifications_on_product ON public.product_specifications USING btree (product_id);
+
+
+--
+-- Name: index_product_specifications_on_product_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_product_specifications_on_product_id ON public.product_specifications USING btree (product_id);
+
+
+--
+-- Name: index_product_specifications_on_uid; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_product_specifications_on_uid ON public.product_specifications USING btree (uid);
 
 
 --
@@ -2100,6 +2177,14 @@ ALTER TABLE ONLY public.customers
 
 
 --
+-- Name: product_specifications fk_rails_98d4b0ce97; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.product_specifications
+    ADD CONSTRAINT fk_rails_98d4b0ce97 FOREIGN KEY (product_id) REFERENCES public.products(id);
+
+
+--
 -- Name: active_storage_variant_records fk_rails_993965df05; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2235,6 +2320,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20230415124744'),
 ('20230415125609'),
 ('20230422082949'),
-('20230422083856');
+('20230422083856'),
+('20230422084536');
 
 

@@ -18,6 +18,7 @@ ActiveRecord::Base.connection.execute('DELETE FROM warehouses')
 ActiveRecord::Base.connection.execute('DELETE FROM suppliers')
 ActiveRecord::Base.connection.execute('DELETE FROM customers')
 ActiveRecord::Base.connection.execute('DELETE FROM sales_people')
+ActiveRecord::Base.connection.execute('DELETE FROM product_specifications')
 ActiveRecord::Base.connection.execute('DELETE FROM product_components')
 ActiveRecord::Base.connection.execute('DELETE FROM products')
 ActiveRecord::Base.connection.execute('DELETE FROM brands')
@@ -234,6 +235,14 @@ Faker::Code.unique.clear
     tags: Faker::Lorem.words(number: 4),
     created_by: admin_user, 
     updated_by: admin_user)
+
+  ProductSpecification.create!(
+    uid: SecureRandom.uuid,
+    product: product,
+    width: Faker::Number.between(from: 1, to: 3),
+    height: Faker::Number.between(from: 1, to: 3),
+    depth: Faker::Number.between(from: 1, to: 2),
+    weight: Faker::Number.between(from: 3, to: 8))
 end
 
 15.times do
@@ -251,6 +260,14 @@ end
     tags: Faker::Lorem.words(number: 4),
     created_by: admin_user, 
     updated_by: admin_user)
+
+  ProductSpecification.create!(
+    uid: SecureRandom.uuid,
+    product: product,
+    width: Faker::Number.between(from: 1, to: 3),
+    height: Faker::Number.between(from: 1, to: 3),
+    depth: Faker::Number.between(from: 1, to: 2),
+    weight: Faker::Number.between(from: 3, to: 8))
 end
 
 55.times do
@@ -267,6 +284,14 @@ end
     tags: Faker::Lorem.words(number: 4),
     created_by: admin_user,
     updated_by: admin_user)
+
+    ProductSpecification.create!(
+      uid: SecureRandom.uuid,
+      product: product,
+      width: Faker::Number.between(from: 1, to: 3),
+      height: Faker::Number.between(from: 1, to: 3),
+      depth: Faker::Number.between(from: 1, to: 2),
+      weight: Faker::Number.between(from: 3, to: 8))
 end
 
 product_component_1 = Product.all[1]
@@ -301,6 +326,14 @@ product_component_3 = Product.all[3]
     component: Product.where("is_component = true").all[2],
     product_composition: :units,
     units: 5)
+
+  ProductSpecification.create!(
+    uid: SecureRandom.uuid,
+    product: product,
+    width: Faker::Number.between(from: 1, to: 3),
+    height: Faker::Number.between(from: 1, to: 3),
+    depth: Faker::Number.between(from: 1, to: 2),
+    weight: Faker::Number.between(from: 3, to: 8))
 end
 
 product_assembled_1 = Product.where('is_assembled = true').all[1]
