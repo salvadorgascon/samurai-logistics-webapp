@@ -882,6 +882,14 @@ export const user_unlock_path = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"web"],[
 
 /**
  * Generates rails route to
+ * /web/customer_list/index(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const web_customer_list_index_path = __jsr.r({"format":{}}, [2,[7,"/"],[2,[6,"web"],[2,[7,"/"],[2,[6,"customer_list"],[2,[7,"/"],[2,[6,"index"],[1,[2,[8,"."],[3,"format"]]]]]]]]]);
+
+/**
+ * Generates rails route to
  * /web/home/index(.:format)
  * @param {object | undefined} options
  * @returns {string} route path

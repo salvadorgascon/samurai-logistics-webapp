@@ -560,6 +560,16 @@ export const user_unlock_path: ((
 
 /**
  * Generates rails route to
+ * /web/customer_list/index(.:format)
+ * @param {object | undefined} options
+ * @returns {string} route path
+ */
+export const web_customer_list_index_path: ((
+  options?: {format?: OptionalRouteParameter} & RouteOptions
+) => string) & RouteHelperExtras;
+
+/**
+ * Generates rails route to
  * /web/home/index(.:format)
  * @param {object | undefined} options
  * @returns {string} route path
