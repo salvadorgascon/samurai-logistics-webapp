@@ -5,12 +5,20 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
-      "welcome": "Welcome to Samurai Logistics"
+      "home": "Home",      
+      "welcome": "Welcome to Samurai Logistics",
+      "products": "Products",
+      "customers": "Customers",
+      "add": "Add"
     }
   },
   es: {
     translation: {
-      "welcome": "Bienvenido a Samurai Logistics"
+      "home": "Inicio",
+      "products": "Productos",
+      "customers": "Clientes",
+      "welcome": "Bienvenido a Samurai Logistics",
+      "add": "Añadir"
     }
   }
 };

@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
+
 import { Link } from "react-router-dom";
 
 import Grid from '@mui/material/Unstable_Grid2'; 
@@ -16,6 +18,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 
 export default function Header() {
+  const { t, i18n } = useTranslation();
+
   return (<header>
     <AppBar position="static" className="mb-5">
     <Toolbar>               
@@ -31,9 +35,9 @@ export default function Header() {
           <Avatar variant="square" src="/assets/logos/samuraidb_30_30.png" />
           <Typography variant="h6" className="mr-10">Samurai Logistics</Typography>
 
-      <Button  variant="text" sx={{ color: '#fff' }} component={Link} to={`/`}>Home</Button>
-      <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`products`}>Products</Button>            
-      <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`customers`}>Customers</Button>            
+      <Button  variant="text" sx={{ color: '#fff' }} component={Link} to={`/`}>{t('home')}</Button>
+      <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`products`}>{t('products')}</Button>            
+      <Button  variant="text"  sx={{ color: '#fff' }} component={Link} to={`customers`}>{t('customers')}</Button>            
     </Toolbar>
     </AppBar>
   </header>);

@@ -91,7 +91,7 @@ export default function Home() {
               
             </CardContent>
             <CardActions>
-              <Button size="small"><AddIcon/> Add</Button>
+              <Button size="small"><AddIcon/> {t('add')}</Button>
               <Button size="small"><WindowIcon/> Sales orders</Button>
             </CardActions>
           </Card>         
@@ -103,7 +103,7 @@ export default function Home() {
               
             </CardContent>
             <CardActions>
-              <Button size="small"><AddIcon/> Add</Button>
+              <Button size="small"><AddIcon/> {t('add')}</Button>
               <Button size="small"><WindowIcon/> Purchase orders</Button>
             </CardActions>
           </Card>         
@@ -126,8 +126,8 @@ export default function Home() {
               
             </CardContent>
             <CardActions>
-              <Button size="small"><AddIcon/> Add</Button>
-              <Button size="small"><WindowIcon/> Products</Button>
+              <Button size="small"><AddIcon/> {t('add')}</Button>
+              <Button size="small"><WindowIcon/> {t('products')}</Button>
             </CardActions>
           </Card>         
         </Grid>
@@ -147,8 +147,8 @@ export default function Home() {
 
             </CardContent>
             <CardActions>
-              <Button size="small"><AddIcon/> Add</Button>
-              <Button size="small"><WindowIcon/> Customers</Button>
+              <Button size="small"><AddIcon/> {t('add')}</Button>
+              <Button size="small"><WindowIcon/> {t('customers')}</Button>
             </CardActions>
           </Card>         
         </Grid>
