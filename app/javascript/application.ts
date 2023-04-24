@@ -6,5 +6,7 @@ import "@hotwired/turbo-rails";
 // import '@fontsource/roboto/500.css';
 // import '@fontsource/roboto/700.css';
 
+import "./i18n";
+
 // Load controllers
 import "./controllers";

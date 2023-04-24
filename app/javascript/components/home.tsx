@@ -3,6 +3,8 @@ import { useState } from 'react';
 
 import { Link } from "react-router-dom";
 
+import { useTranslation } from 'react-i18next';
+
 import Typography from '@mui/material/Typography';
 
 import Container from '@mui/material/Container';
@@ -24,6 +26,8 @@ import { DataGrid, GridRowsProp, GridColDef, GridRowParams, GridActionsCellItem 
 import axios from 'axios';
 
 export default function Home() {
+  const { t, i18n } = useTranslation();
+
   const [latestCustomers, setLatestCustomers] = useState([]);
   const [latestProducts, setLatestProducts] = useState([]);
 
@@ -35,9 +39,6 @@ export default function Home() {
     .catch(function (error) {
       // handle error
       console.log(error);
-    })
-    .finally(function () {
-      // always executed
     });
   }  
 
@@ -49,9 +50,6 @@ export default function Home() {
     .catch(function (error) {
       // handle error
       console.log(error);
-    })
-    .finally(function () {
-      // always executed
     });
   }  
 
@@ -60,7 +58,7 @@ export default function Home() {
       <Grid container spacing={2}>
         <Grid item md={12}>   
           <Card>
-            <CardHeader title="Welcome to Samurai Logistics"/> 
+            <CardHeader title={t('welcome')}/> 
             <CardContent>                      
             </CardContent>            
           </Card>         
