@@ -48,6 +48,11 @@ class Customer < ApplicationRecord
   belongs_to :created_by, class_name: 'User'
   belongs_to :updated_by, class_name: 'User'
 
+  include WithUid
+  include WithState
+  include ContainsCode
+  include ContainsName
+
   validates :uid, presence: true
 
   validates :code, presence: true
