@@ -1,5 +1,6 @@
 Rails.application.routes.draw do  
   namespace :web do
+    get 'customer_list/index'
     get 'home/index'
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
